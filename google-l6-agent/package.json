@@ -1,0 +1,53 @@
+{
+  "name": "google-l6-agent",
+  "displayName": "Google L6 Agent",
+  "description": "A VS Code Chat Participant that acts as a Google L6 Senior Engineer.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "google.l6",
+        "name": "google",
+        "description": "Google L6 Senior Engineer Persona",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "review",
+            "description": "Review code with Google engineering standards"
+          },
+          {
+            "name": "arch",
+            "description": "Design system architecture"
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.6",
+    "@vscode/test-electron": "^2.3.9"
+  }
+}

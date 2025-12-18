@@ -1,0 +1,6 @@
+.vscode/settings.json
+
+out
+node_modules
+.vscode-test
+*.vsix
