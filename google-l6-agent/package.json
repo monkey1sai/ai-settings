@@ -1,8 +1,10 @@
 {
   "name": "vscode-agents",
-  "displayName": "VS Code Agents",
-  "description": "A collection of AI Agents for VS Code.",
+  "displayName": "vs code agents",
+  "description": "Multiple Copilot Chat agents (personas) for VS Code, switchable via @commands.",
   "version": "0.0.1",
+  "publisher": "monkey1sai",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -10,11 +12,34 @@
     "AI",
     "Chat"
   ],
+  "keywords": [
+    "copilot",
+    "chat",
+    "agents",
+    "prompts",
+    "persona"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/example/vscode-agents.git"
+    "url": "https://github.com/monkey1sai/vscode-agents.git"
   },
-  "activationEvents": [],
+  "homepage": "https://github.com/monkey1sai/vscode-agents",
+  "bugs": {
+    "url": "https://github.com/monkey1sai/vscode-agents/issues"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/monkey1sai"
+  },
+  "activationEvents": [
+    "onChatParticipant:agent.ai_agent",
+    "onChatParticipant:agent.ai_infra",
+    "onChatParticipant:agent.ai_test",
+    "onChatParticipant:agent.ai_data",
+    "onChatParticipant:agent.ai_product",
+    "onChatParticipant:agent.google_engineer",
+    "onChatParticipant:agent.arch_destroyer",
+    "onChatParticipant:agent.super_coding"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "chatParticipants": [

@@ -1,17 +1,17 @@
-# Google L6 Agent
+# VS Code Agents
 
-A VS Code Chat Participant that acts as a Google L6 Senior Engineer.
+一組可在 GitHub Copilot Chat 中使用的多角色（persona）Agents，可用 `@` 指令快速切換。
 
 ## Features
 
-- **@google工程師**: Chat with a Google L6 Senior Engineer persona.
-- **review**: Review code with Google engineering standards.
-- **arch**: Design system architecture.
+- 多個可切換的 Chat Agents（例如：`@ai_agent`, `@ai_infra`, `@ai_test`, `@ai_data`, `@ai_product`, `@google_engineer`...）
+- 依 Copilot Chat 當下選擇的模型回覆（不硬編碼模型）
+- 支援外部提示詞覆寫（不需重啟 Extension Host）
 
 ## Usage
 
 1. Open GitHub Copilot Chat.
-2. Type `@google工程師` to start chatting.
+2. Type `@ai_agent` (or other agent command) to start chatting.
 
 ## Install
 
@@ -20,6 +20,37 @@ A VS Code Chat Participant that acts as a Google L6 Senior Engineer.
 ```bash
 code --install-extension C:\.vscode\agent-prompts\google-l6-agent\vscode-agents-0.0.1.vsix
 ```
+
+## GitHub Sponsors
+
+如果你覺得這個 extension 對你有幫助，歡迎透過 GitHub Sponsors 支持：
+
+- https://github.com/sponsors/monkey1sai
+
+## Publish (VS Code Marketplace)
+
+你需要先在 VS Code Marketplace 建立 publisher `monkey1sai`，並取得可發布的 PAT（Personal Access Token）。
+
+### 最短發布（本機）
+
+1. 確保已編譯：
+
+```bash
+npm ci
+npm run compile
+```
+
+2. 直接用 PAT 發布（不需要全域安裝 vsce）：
+
+```bash
+npx --yes @vscode/vsce publish -p <YOUR_VSCE_PAT>
+```
+
+### 用 GitHub Actions 自動發布（推薦）
+
+1. 到 GitHub repo 的 Settings → Secrets and variables → Actions
+2. 新增 secret：`VSCE_PAT`（值為你的 Marketplace 發布 PAT）
+3. 推 tag（例如 `v0.0.2`）或手動觸發 workflow，即可自動發布
 
 ## Prompt Overrides
 

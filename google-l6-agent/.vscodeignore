@@ -6,6 +6,7 @@ prompts_override/**
 
 # Exclude development-only files
 .vscode/**
+.github/**
 node_modules/**
 **/*.map
 
