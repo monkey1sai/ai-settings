@@ -18,7 +18,7 @@
 ### Install from VSIX (CLI)
 
 ```bash
-code --install-extension C:\.vscode\agent-prompts\google-l6-agent\vscode-agents-0.0.1.vsix
+code --install-extension C:\.vscode\agent-prompts\google-l6-agent\vscode-agents-0.0.2.vsix
 ```
 
 ## GitHub Sponsors
@@ -50,7 +50,12 @@ npx --yes @vscode/vsce publish -p <YOUR_VSCE_PAT>
 
 1. 到 GitHub repo 的 Settings → Secrets and variables → Actions
 2. 新增 secret：`VSCE_PAT`（值為你的 Marketplace 發布 PAT）
-3. 推 tag（例如 `v0.0.2`）或手動觸發 workflow，即可自動發布
+3. 推 tag（例如 `v0.0.2`）或手動觸發 workflow，即可自動發布：
+
+```bash
+git tag v0.0.2
+git push --tags
+```
 
 ## Prompt Overrides
 

@@ -2,7 +2,7 @@
   "name": "vscode-agents",
   "displayName": "vs code agents",
   "description": "Multiple Copilot Chat agents (personas) for VS Code, switchable via @commands.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "monkey1sai",
   "license": "MIT",
   "engines": {
