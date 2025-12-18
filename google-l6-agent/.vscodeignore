@@ -1,0 +1,21 @@
+# Exclude authoring prompt sources (contain non-ASCII filenames)
+.vdcode_prompt/**
+
+# Exclude local override examples (user workspace artifacts)
+prompts_override/**
+
+# Exclude development-only files
+.vscode/**
+node_modules/**
+**/*.map
+
+# Exclude media / large artifacts if present
+**/*.mp4
+**/*.mov
+**/*.avi
+**/*.mkv
+
+# Exclude logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

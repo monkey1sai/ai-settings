@@ -1,7 +1,7 @@
 {
-  "name": "google-l6-agent",
-  "displayName": "Google L6 Agent",
-  "description": "A VS Code Chat Participant that acts as a Google L6 Senior Engineer.",
+  "name": "vscode-agents",
+  "displayName": "VS Code Agents",
+  "description": "A collection of AI Agents for VS Code.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.90.0"
@@ -12,29 +12,76 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/example/google-l6-agent.git"
+    "url": "https://github.com/example/vscode-agents.git"
   },
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "chatParticipants": [
       {
-        "id": "google.l6",
-        "name": "google工程師",
-        "description": "Google L6 Senior Engineer Persona",
-        "isSticky": true,
-        "commands": [
-          {
-            "name": "review",
-            "description": "Review code with Google engineering standards"
-          },
-          {
-            "name": "arch",
-            "description": "Design system architecture"
-          }
-        ]
+        "id": "agent.ai_agent",
+        "name": "ai_agent",
+        "description": "AI Agent 工程師",
+        "isSticky": true
+      },
+      {
+        "id": "agent.ai_infra",
+        "name": "ai_infra",
+        "description": "AI 基礎設施",
+        "isSticky": true
+      },
+      {
+        "id": "agent.ai_test",
+        "name": "ai_test",
+        "description": "AI 測試工程師",
+        "isSticky": true
+      },
+      {
+        "id": "agent.ai_data",
+        "name": "ai_data",
+        "description": "AI 資料工程師",
+        "isSticky": true
+      },
+      {
+        "id": "agent.ai_product",
+        "name": "ai_product",
+        "description": "AI產品工程師",
+        "isSticky": true
+      },
+      {
+        "id": "agent.google_engineer",
+        "name": "google_engineer",
+        "description": "Google工程師",
+        "isSticky": true
+      },
+      {
+        "id": "agent.arch_destroyer",
+        "name": "arch_destroyer",
+        "description": "架構滅絕師",
+        "isSticky": true
+      },
+      {
+        "id": "agent.super_coding",
+        "name": "super_coding",
+        "description": "超級codeing助理",
+        "isSticky": true
       }
-    ]
+    ],
+    "configuration": {
+      "title": "VS Code Agents",
+      "properties": {
+        "vscodeAgents.promptOverrideFolder": {
+          "type": "string",
+          "default": "",
+          "description": "Relative or absolute path to a folder containing override prompt files (e.g. ai_agent.prompt.md). Files found in this folder take precedence over the built-in prompts."
+        },
+        "vscodeAgents.debugPromptSource": {
+          "type": "boolean",
+          "default": false,
+          "description": "When enabled, each agent response will include a short debug line indicating whether the built-in prompt or an override file was used (and the override file path if applicable)."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
