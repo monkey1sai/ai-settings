@@ -18,7 +18,7 @@
 ### Install from VSIX (CLI)
 
 ```bash
-code --install-extension C:\.vscode\agent-prompts\google-l6-agent\vscode-agents-0.0.3.vsix
+code --install-extension C:\.vscode\agent-prompts\google-l6-agent\vscode-agents-0.0.4.vsix
 ```
 
 ## GitHub Sponsors
@@ -53,7 +53,7 @@ npx --yes @vscode/vsce publish -p <YOUR_VSCE_PAT>
 3. 推 tag（例如 `v0.0.2`）或手動觸發 workflow，即可自動發布：
 
 ```bash
-git tag v0.0.3
+git tag v0.0.4
 git push --tags
 ```
 
