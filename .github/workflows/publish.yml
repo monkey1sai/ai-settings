@@ -21,12 +21,15 @@ jobs:
           cache: npm
 
       - name: Install
+        working-directory: google-l6-agent
         run: npm ci
 
       - name: Compile
+        working-directory: google-l6-agent
         run: npm run compile
 
       - name: Publish
+        working-directory: google-l6-agent
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |

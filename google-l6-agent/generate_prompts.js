@@ -12,7 +12,7 @@ const nameMapping = {
     "AI 測試工程師": "ai_test",
     "AI 資料工程師": "ai_data",
     "AI產品工程師": "ai_product",
-    "Google工程師": "google_engineer",
+    "領域驅動設計（DDD）工程師": "ddd_engineer",
     "架構滅絕師": "arch_destroyer",
     "超級codeing助理": "super_coding"
 };

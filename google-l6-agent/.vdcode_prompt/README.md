@@ -38,8 +38,8 @@
 *   **風格**: 強調確定性 (Deterministic)、穩定性與可觀測性。
 
 ### 4. Google 資深工程師 (Google Senior Engineer)
-*   **檔案名稱**: `Google工程師.prompt.md`
-*   **角色定位**: Google L6 資深全端工程師、GCP 雲端專家。
+*   **檔案名稱**: `領域驅動設計（DDD）工程師.prompt.md`
+*   **角色定位**: 資深全端工程師（DDD 取向），專注於領域建模、可演進架構與工程落地。
 *   **核心功能**:
     *   **全端開發實作**: 提供 Production-ready 的程式碼，涵蓋前端（React/Vue）、後端（Go/Python/Node）與資料庫設計。
     *   **工程最佳實踐**: 遵循 Google 工程文化，強調可讀性、測試與 CI/CD 流程。

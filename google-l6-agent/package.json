@@ -2,7 +2,7 @@
   "name": "vscode-agents",
   "displayName": "vs code agents",
   "description": "Multiple Copilot Chat agents (personas) for VS Code, switchable via @commands.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "monkey1sai",
   "license": "MIT",
   "engines": {
@@ -36,7 +36,7 @@
     "onChatParticipant:agent.ai_test",
     "onChatParticipant:agent.ai_data",
     "onChatParticipant:agent.ai_product",
-    "onChatParticipant:agent.google_engineer",
+    "onChatParticipant:agent.ddd_engineer",
     "onChatParticipant:agent.arch_destroyer",
     "onChatParticipant:agent.super_coding"
   ],
@@ -74,9 +74,9 @@
         "isSticky": true
       },
       {
-        "id": "agent.google_engineer",
-        "name": "google_engineer",
-        "description": "Google工程師",
+        "id": "agent.ddd_engineer",
+        "name": "ddd_engineer",
+        "description": "領域驅動設計（DDD）工程師",
         "isSticky": true
       },
       {

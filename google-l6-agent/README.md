@@ -4,7 +4,7 @@
 
 ## Features
 
-- 多個可切換的 Chat Agents（例如：`@ai_agent`, `@ai_infra`, `@ai_test`, `@ai_data`, `@ai_product`, `@google_engineer`...）
+- 多個可切換的 Chat Agents（例如：`@ai_agent`, `@ai_infra`, `@ai_test`, `@ai_data`, `@ai_product`, `@ddd_engineer`...）
 - 依 Copilot Chat 當下選擇的模型回覆（不硬編碼模型）
 - 支援外部提示詞覆寫（不需重啟 Extension Host）
 
@@ -18,7 +18,7 @@
 ### Install from VSIX (CLI)
 
 ```bash
-code --install-extension C:\.vscode\agent-prompts\google-l6-agent\vscode-agents-0.0.2.vsix
+code --install-extension C:\.vscode\agent-prompts\google-l6-agent\vscode-agents-0.0.3.vsix
 ```
 
 ## GitHub Sponsors
@@ -53,7 +53,7 @@ npx --yes @vscode/vsce publish -p <YOUR_VSCE_PAT>
 3. 推 tag（例如 `v0.0.2`）或手動觸發 workflow，即可自動發布：
 
 ```bash
-git tag v0.0.2
+git tag v0.0.3
 git push --tags
 ```
 
