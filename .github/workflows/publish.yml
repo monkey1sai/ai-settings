@@ -10,6 +10,10 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: google-l6-agent
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,18 +24,27 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: google-l6-agent/package-lock.json
+
+      - name: Verify workspace
+        run: |
+          echo "PWD=$(pwd)"
+          ls -la
+          test -f package.json || (echo "::error::package.json not found in working-directory" && exit 1)
+          test -f package-lock.json || (echo "::error::package-lock.json not found in working-directory" && exit 1)
+
       - name: Install
-        working-directory: google-l6-agent
         run: npm ci
 
       - name: Compile
-        working-directory: google-l6-agent
         run: npm run compile
 
-      - name: Publish
-        working-directory: google-l6-agent
+      - name: Verify VSCE_PAT
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
-          test -n "$VSCE_PAT" || (echo "VSCE_PAT secret is not set" && exit 1)
-          npx --yes @vscode/vsce publish -p "$VSCE_PAT"
+          test -n "$VSCE_PAT" || (echo "::error::VSCE_PAT secret is not set (GitHub repo Settings -> Secrets and variables -> Actions)" && exit 1)
+
+      - name: Publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npx --yes @vscode/vsce publish -p "$VSCE_PAT"
