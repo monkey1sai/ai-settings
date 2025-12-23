@@ -1,5 +1,5 @@
 # Exclude authoring prompt sources (contain non-ASCII filenames)
-.vdcode_prompt/**
+.vscode_prompt/**
 
 # Exclude local override examples (user workspace artifacts)
 prompts_override/**

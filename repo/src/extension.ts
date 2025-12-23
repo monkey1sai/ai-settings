@@ -32,10 +32,39 @@ export function activate(context: vscode.ExtensionContext) {
             }
 
             const model = request.model;
-            const messages = [
-                vscode.LanguageModelChatMessage.User(systemPrompt),
-                vscode.LanguageModelChatMessage.User(request.prompt)
-            ];
+            const messages: vscode.LanguageModelChatMessage[] = [];
+
+            // Treat persona prompt as the first user message for broad compatibility.
+            // (Some VS Code versions/models may not support an explicit System role.)
+            messages.push(vscode.LanguageModelChatMessage.User(systemPrompt));
+
+            // Include prior turns for this participant so the conversation can continue.
+            // Note: `context.history` includes only messages for the current participant.
+            for (const turn of context.history) {
+                if (turn instanceof vscode.ChatRequestTurn) {
+                    if (turn.prompt?.trim()) {
+                        messages.push(vscode.LanguageModelChatMessage.User(turn.prompt));
+                    }
+                    continue;
+                }
+
+                if (turn instanceof vscode.ChatResponseTurn) {
+                    let fullMessage = '';
+                    for (const part of turn.response) {
+                        const mdPart = part as vscode.ChatResponseMarkdownPart;
+                        const value = mdPart?.value?.value;
+                        if (typeof value === 'string') {
+                            fullMessage += value;
+                        }
+                    }
+                    if (fullMessage.trim()) {
+                        messages.push(vscode.LanguageModelChatMessage.Assistant(fullMessage));
+                    }
+                }
+            }
+
+            // Add current user message
+            messages.push(vscode.LanguageModelChatMessage.User(request.prompt));
 
             try {
                 const chatResponse = await model.sendRequest(messages, {}, token);
@@ -136,6 +165,11 @@ function stripCodeBlocks(content: string): string {
     if (lines.length > 0 && lines[0].trim().startsWith('```')) {
         lines.shift();
     }
+
+    while (lines.length > 0 && lines[lines.length - 1].trim() === '') {
+        lines.pop();
+    }
+
     if (lines.length > 0 && lines[lines.length - 1].trim().startsWith('```')) {
         lines.pop();
     }

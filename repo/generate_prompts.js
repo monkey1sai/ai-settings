@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const promptDir = '.vdcode_prompt';
+const promptDir = '.vscode_prompt';
 const ignoredFiles = ['README.md', 'The Workflow Topology.md'];
 
 // Mapping for Chinese filenames to valid command names (alphanumeric + - _)
@@ -51,14 +51,14 @@ files.forEach(file => {
     const id = `agent.${validName}`;
 
     const content = fs.readFileSync(path.join(promptDir, file), 'utf8');
-    
+
     // Clean content
     let cleanContent = content;
     const lines = cleanContent.split('\n');
     if (lines.length > 0 && lines[0].trim().startsWith('```')) lines.shift();
     if (lines.length > 0 && lines[lines.length - 1].trim().startsWith('```')) lines.pop();
     cleanContent = lines.join('\n');
-    
+
     prompts[id] = cleanContent; // Use ID as key in prompts.ts
 
     participants.push({

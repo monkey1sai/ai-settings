@@ -74,12 +74,6 @@
         "isSticky": true
       },
       {
-        "id": "agent.ddd_engineer",
-        "name": "ddd_engineer",
-        "description": "領域驅動設計（DDD）工程師",
-        "isSticky": true
-      },
-      {
         "id": "agent.arch_destroyer",
         "name": "arch_destroyer",
         "description": "架構滅絕師",
@@ -89,6 +83,12 @@
         "id": "agent.super_coding",
         "name": "super_coding",
         "description": "超級codeing助理",
+        "isSticky": true
+      },
+      {
+        "id": "agent.ddd_engineer",
+        "name": "ddd_engineer",
+        "description": "領域驅動設計（DDD）工程師",
         "isSticky": true
       }
     ],
