@@ -4,8 +4,8 @@
 
 ## 🚀 快速開始
 
-### 同步設定到雲端（推薦）
-當本機設定有變更時，執行此指令一鍵備份並推送：
+### 同步設定到雲端
+當本機設定有變更時，執行：
 ```powershell
 .\scripts\sync.ps1
 ```
@@ -13,12 +13,8 @@
 可選參數：
 ```powershell
 .\scripts\sync.ps1 -Message "新增 Gemini skill"  # 自訂 commit 訊息
+.\scripts\sync.ps1 -BackupOnly                    # 只複製到專案，不 push
 .\scripts\sync.ps1 -DryRun                        # 預覽模式
-```
-
-### 僅備份（不推送）
-```powershell
-.\scripts\backup.ps1
 ```
 
 ### 在新電腦還原
@@ -32,16 +28,20 @@ cd ai-settings
 
 ```
 ai-settings/
-├── configs/          # 設定檔備份
+├── configs/          # 設定檔
 │   ├── gemini/       # settings.json, GEMINI.md
 │   ├── claude/       # settings.json, plugins.json
 │   └── codex/        # config.toml, AGENTS.md
-├── skills/           # 技能備份
+├── skills/           # 技能
 │   ├── gemini/
 │   └── codex/
-├── extensions/       # 擴充套件備份
+├── extensions/       # 擴充套件
 │   └── gemini/
-└── scripts/          # 備份/還原腳本
+├── rules/            # 規則
+│   └── codex/
+└── scripts/          # 腳本
+    ├── sync.ps1      # 同步到雲端
+    └── restore.ps1   # 還原設定
 ```
 
 ## 📋 同步內容

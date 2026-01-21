@@ -1,23 +1,27 @@
 <#
 .SYNOPSIS
-    AI Settings Sync Script - 備份本機設定並同步到雲端 Git
+    AI Settings Sync - 同步本機設定到雲端 Git
 .DESCRIPTION
     此腳本會：
-    1. 執行 backup.ps1 備份本機設定到專案
-    2. 檢查是否有變更
+    1. 讀取本機 Gemini/Claude/Codex 設定
+    2. 複製到專案目錄
     3. 自動 commit 並 push 到遠端倉庫
 .PARAMETER Message
     自訂的 commit 訊息 (預設: "Sync AI settings - 日期時間")
+.PARAMETER BackupOnly
+    只備份到專案，不執行 git 操作
 .PARAMETER DryRun
-    預覽模式，不實際執行 git 操作
+    預覽模式，不實際執行
 .EXAMPLE
-    .\sync.ps1
-    .\sync.ps1 -Message "新增 Gemini skill"
-    .\sync.ps1 -DryRun
+    .\sync.ps1                               # 同步到雲端
+    .\sync.ps1 -Message "新增 skill"          # 自訂訊息
+    .\sync.ps1 -BackupOnly                    # 只備份，不 push
+    .\sync.ps1 -DryRun                        # 預覽模式
 #>
 
 param(
     [string]$Message = "",
+    [switch]$BackupOnly,
     [switch]$DryRun
 )
 
@@ -25,54 +29,151 @@ $ErrorActionPreference = "Stop"
 
 # 專案根目錄
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
+$UserHome = $env:USERPROFILE
 
 Write-Host "╔══════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║     AI Settings Sync Script                  ║" -ForegroundColor Cyan
-Write-Host "║     📤 備份 + 推送到雲端                      ║" -ForegroundColor Cyan
+Write-Host "║     AI Settings Sync                         ║" -ForegroundColor Cyan
 Write-Host "╚══════════════════════════════════════════════╝" -ForegroundColor Cyan
 Write-Host ""
 
 if ($DryRun) {
-    Write-Host "[DRY RUN] 預覽模式 - 不會實際執行 git 操作" -ForegroundColor Yellow
+    Write-Host "[DRY RUN] 預覽模式" -ForegroundColor Yellow
     Write-Host ""
 }
 
 # ============================================================
-# Step 1: 執行備份
+# 備份函數
 # ============================================================
 
-Write-Host "📦 Step 1: 備份本機設定..." -ForegroundColor Blue
-Write-Host ""
+function Backup-File {
+    param([string]$Source, [string]$Destination)
+    
+    if (Test-Path $Source) {
+        $destDir = Split-Path -Parent $Destination
+        if (-not (Test-Path $destDir) -and -not $DryRun) {
+            New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+        }
+        
+        if ($DryRun) {
+            Write-Host "  [COPY] $(Split-Path -Leaf $Source)" -ForegroundColor Gray
+        } else {
+            Copy-Item -Path $Source -Destination $Destination -Force
+            Write-Host "  ✓ $(Split-Path -Leaf $Source)" -ForegroundColor Green
+        }
+    } else {
+        Write-Host "  ⊘ $(Split-Path -Leaf $Source) (not found)" -ForegroundColor DarkGray
+    }
+}
 
-$backupScript = Join-Path $PSScriptRoot "backup.ps1"
-if ($DryRun) {
-    & $backupScript -DryRun
-} else {
-    & $backupScript
+function Backup-Directory {
+    param([string]$Source, [string]$Destination, [string[]]$Exclude = @())
+    
+    if (Test-Path $Source) {
+        if (-not (Test-Path $Destination) -and -not $DryRun) {
+            New-Item -ItemType Directory -Path $Destination -Force | Out-Null
+        }
+        
+        $items = Get-ChildItem -Path $Source -Directory | Where-Object { $_.Name -notin $Exclude }
+        $count = ($items | Measure-Object).Count
+        
+        if ($DryRun) {
+            Write-Host "  [COPY] $count directories" -ForegroundColor Gray
+        } else {
+            foreach ($item in $items) {
+                Copy-Item -Path $item.FullName -Destination $Destination -Recurse -Force
+            }
+            Write-Host "  ✓ $count directories" -ForegroundColor Green
+        }
+    } else {
+        Write-Host "  ⊘ Directory not found" -ForegroundColor DarkGray
+    }
 }
 
 # ============================================================
-# Step 2: 檢查 Git 狀態
+# Step 1: 複製本機設定到專案
 # ============================================================
 
-Write-Host "🔍 Step 2: 檢查變更..." -ForegroundColor Blue
+Write-Host "� Gemini CLI" -ForegroundColor Blue
+$geminiSource = "$UserHome\.gemini"
+$geminiDest = "$ProjectRoot\configs\gemini"
+
+Backup-File "$geminiSource\settings.json" "$geminiDest\settings.json"
+Backup-File "$geminiSource\GEMINI.md" "$geminiDest\GEMINI.md"
+Write-Host "  Skills:" -ForegroundColor DarkCyan
+Backup-Directory "$geminiSource\skills" "$ProjectRoot\skills\gemini"
+Write-Host "  Extensions:" -ForegroundColor DarkCyan
+Backup-Directory "$geminiSource\extensions" "$ProjectRoot\extensions\gemini" -Exclude @("extension-enablement.json")
+Backup-File "$geminiSource\extensions\extension-enablement.json" "$ProjectRoot\extensions\gemini\extension-enablement.json"
+Write-Host ""
+
+Write-Host "📦 Claude CLI" -ForegroundColor Blue
+$claudeSource = "$UserHome\.claude"
+$claudeDest = "$ProjectRoot\configs\claude"
+
+Backup-File "$claudeSource\settings.json" "$claudeDest\settings.json"
+Backup-File "$claudeSource\settings.local.json" "$claudeDest\settings.local.json"
+Backup-File "$claudeSource\plugins\installed_plugins.json" "$claudeDest\installed_plugins.json"
+Backup-File "$claudeSource\plugins\known_marketplaces.json" "$claudeDest\known_marketplaces.json"
+Write-Host ""
+
+Write-Host "📦 Codex CLI" -ForegroundColor Blue
+$codexSource = "$UserHome\.codex"
+$codexDest = "$ProjectRoot\configs\codex"
+
+# config.toml - 移除 [projects.*] 區塊
+$configPath = "$codexSource\config.toml"
+if (Test-Path $configPath) {
+    $configContent = Get-Content $configPath -Raw
+    $cleanedConfig = $configContent -replace '(?ms)\[projects\.[^\]]+\]\r?\ntrust_level = "[^"]+"\r?\n', ''
+    
+    if (-not (Test-Path $codexDest) -and -not $DryRun) {
+        New-Item -ItemType Directory -Path $codexDest -Force | Out-Null
+    }
+    
+    if ($DryRun) {
+        Write-Host "  [COPY] config.toml (cleaned)" -ForegroundColor Gray
+    } else {
+        $cleanedConfig | Set-Content -Path "$codexDest\config.toml" -NoNewline
+        Write-Host "  ✓ config.toml (cleaned)" -ForegroundColor Green
+    }
+} else {
+    Write-Host "  ⊘ config.toml (not found)" -ForegroundColor DarkGray
+}
+
+Backup-File "$codexSource\AGENTS.md" "$codexDest\AGENTS.md"
+Backup-File "$codexSource\SYSTEM.md" "$codexDest\SYSTEM.md"
+Write-Host "  Skills:" -ForegroundColor DarkCyan
+Backup-Directory "$codexSource\skills" "$ProjectRoot\skills\codex" -Exclude @(".system", "dist")
+Write-Host "  Rules:" -ForegroundColor DarkCyan
+Backup-Directory "$codexSource\rules" "$ProjectRoot\rules\codex"
+Backup-File "$codexSource\rules\default.rules" "$ProjectRoot\rules\codex\default.rules"
+Write-Host ""
+
+# ============================================================
+# Step 2: Git 同步
+# ============================================================
+
+if ($BackupOnly) {
+    Write-Host "════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host "✅ 備份完成！(使用 -BackupOnly，未推送到雲端)" -ForegroundColor Green
+    Write-Host ""
+    exit 0
+}
+
+Write-Host "🔍 檢查變更..." -ForegroundColor Blue
 
 Push-Location $ProjectRoot
 
 try {
-    # 檢查是否是 git 倉庫
     if (-not (Test-Path ".git")) {
-        Write-Host "❌ 錯誤：此目錄不是 Git 倉庫" -ForegroundColor Red
-        Write-Host "   請先執行 'git init' 並設定遠端倉庫" -ForegroundColor Yellow
+        Write-Host "❌ 此目錄不是 Git 倉庫，請先 git init" -ForegroundColor Red
         exit 1
     }
 
-    # 檢查是否有變更
     $status = git status --porcelain
     
     if ([string]::IsNullOrWhiteSpace($status)) {
         Write-Host "✓ 沒有需要同步的變更" -ForegroundColor Green
-        Write-Host ""
         exit 0
     }
 
@@ -81,61 +182,30 @@ try {
     $modified = ($status | Where-Object { $_ -match "^ M|^M " } | Measure-Object).Count
     $deleted = ($status | Where-Object { $_ -match "^ D|^D " } | Measure-Object).Count
     
-    Write-Host ""
-    Write-Host "  變更摘要:" -ForegroundColor White
-    if ($added -gt 0) { Write-Host "    + $added 新增" -ForegroundColor Green }
-    if ($modified -gt 0) { Write-Host "    ~ $modified 修改" -ForegroundColor Yellow }
-    if ($deleted -gt 0) { Write-Host "    - $deleted 刪除" -ForegroundColor Red }
+    if ($added -gt 0) { Write-Host "  + $added 新增" -ForegroundColor Green }
+    if ($modified -gt 0) { Write-Host "  ~ $modified 修改" -ForegroundColor Yellow }
+    if ($deleted -gt 0) { Write-Host "  - $deleted 刪除" -ForegroundColor Red }
     Write-Host ""
 
-    # ============================================================
-    # Step 3: Git 操作
-    # ============================================================
+    Write-Host "📤 推送到雲端..." -ForegroundColor Blue
 
-    Write-Host "📤 Step 3: 推送到雲端..." -ForegroundColor Blue
-
-    # 產生 commit 訊息
     if ([string]::IsNullOrWhiteSpace($Message)) {
         $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
         $Message = "Sync AI settings - $timestamp"
     }
 
     if ($DryRun) {
-        Write-Host "  [GIT ADD] git add -A" -ForegroundColor Gray
-        Write-Host "  [GIT COMMIT] git commit -m '$Message'" -ForegroundColor Gray
-        Write-Host "  [GIT PUSH] git push" -ForegroundColor Gray
+        Write-Host "  [GIT] add -A && commit && push" -ForegroundColor Gray
     } else {
-        # Add all changes
-        Write-Host "  Adding files..." -ForegroundColor DarkGray
         git add -A
-
-        # Commit
-        Write-Host "  Committing..." -ForegroundColor DarkGray
         git commit -m $Message
-
-        # Push
-        Write-Host "  Pushing to remote..." -ForegroundColor DarkGray
         git push
-
         Write-Host ""
         Write-Host "✅ 同步完成！" -ForegroundColor Green
     }
 
-} catch {
-    Write-Host "❌ 錯誤：$($_.Exception.Message)" -ForegroundColor Red
-    exit 1
 } finally {
     Pop-Location
 }
 
 Write-Host ""
-
-# ============================================================
-# 完成提示
-# ============================================================
-
-if ($DryRun) {
-    Write-Host "════════════════════════════════════════════════" -ForegroundColor Cyan
-    Write-Host "✅ 預覽完成！執行 .\sync.ps1 進行實際同步" -ForegroundColor Yellow
-    Write-Host ""
-}
