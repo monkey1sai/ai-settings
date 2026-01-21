@@ -35,3 +35,6 @@
 # OS files
 .DS_Store
 Thumbs.db
+
+# Gemini Temp
+.gemini-clipboard/

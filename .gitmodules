@@ -1,0 +1,7 @@
+[submodule "extensions/gemini/datacommons"]
+	path = extensions/gemini/datacommons
+	url = https://github.com/gemini-cli-extensions/datacommons
+
+[submodule "extensions/gemini/huggingface-skills"]
+	path = extensions/gemini/huggingface-skills
+	url = https://github.com/huggingface/skills
