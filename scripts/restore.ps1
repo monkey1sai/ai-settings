@@ -125,7 +125,8 @@ function Restore-File {
 function Restore-Directory {
     param(
         [string]$Source,
-        [string]$Destination
+        [string]$Destination,
+        [string[]]$PreserveSubmodules = @()  # 保留這些目錄不覆蓋 (submodules)
     )
     
     if (Test-Path $Source) {
@@ -137,16 +138,23 @@ function Restore-Directory {
             }
         }
         
-        $items = Get-ChildItem -Path $Source -Directory
+        # 排除 submodule 目錄
+        $items = Get-ChildItem -Path $Source -Directory | Where-Object { $_.Name -notin $PreserveSubmodules }
         $count = ($items | Measure-Object).Count
         
         if ($DryRun) {
             Write-Host "  [RESTORE DIR] $count items to $Destination" -ForegroundColor Gray
+            if ($PreserveSubmodules.Count -gt 0) {
+                Write-Host "  [SKIP] Submodules: $($PreserveSubmodules -join ', ')" -ForegroundColor DarkYellow
+            }
         } else {
             foreach ($item in $items) {
                 Copy-Item -Path $item.FullName -Destination $Destination -Recurse -Force
             }
             Write-Host "  ✓ $count directories restored" -ForegroundColor Green
+            if ($PreserveSubmodules.Count -gt 0) {
+                Write-Host "  ⊙ Preserved submodules: $($PreserveSubmodules -join ', ')" -ForegroundColor DarkCyan
+            }
         }
     } else {
         Write-Host "  ⊘ Source directory not found: $Source" -ForegroundColor DarkGray
@@ -177,7 +185,9 @@ Write-Host "  Skills:" -ForegroundColor DarkCyan
 Restore-Directory -Source (Join-Path $ProjectRoot "skills\gemini") -Destination "$geminiDest\skills"
 
 Write-Host "  Extensions:" -ForegroundColor DarkCyan
-Restore-Directory -Source (Join-Path $ProjectRoot "extensions\gemini") -Destination "$geminiDest\extensions"
+# 排除 submodule 目錄，它們會由 git submodule update 處理
+$geminiSubmodules = @("datacommons", "huggingface-skills")
+Restore-Directory -Source (Join-Path $ProjectRoot "extensions\gemini") -Destination "$geminiDest\extensions" -PreserveSubmodules $geminiSubmodules
 
 Write-Host ""
 

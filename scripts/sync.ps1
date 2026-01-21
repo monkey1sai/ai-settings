@@ -66,23 +66,36 @@ function Backup-File {
 }
 
 function Backup-Directory {
-    param([string]$Source, [string]$Destination, [string[]]$Exclude = @())
+    param(
+        [string]$Source, 
+        [string]$Destination, 
+        [string[]]$Exclude = @(),
+        [string[]]$PreserveSubmodules = @()  # 保留這些目錄不覆蓋 (submodules)
+    )
     
     if (Test-Path $Source) {
         if (-not (Test-Path $Destination) -and -not $DryRun) {
             New-Item -ItemType Directory -Path $Destination -Force | Out-Null
         }
         
-        $items = Get-ChildItem -Path $Source -Directory | Where-Object { $_.Name -notin $Exclude }
+        # 排除指定項目和 submodule 目錄
+        $allExcludes = $Exclude + $PreserveSubmodules
+        $items = Get-ChildItem -Path $Source -Directory | Where-Object { $_.Name -notin $allExcludes }
         $count = ($items | Measure-Object).Count
         
         if ($DryRun) {
             Write-Host "  [COPY] $count directories" -ForegroundColor Gray
+            if ($PreserveSubmodules.Count -gt 0) {
+                Write-Host "  [SKIP] Submodules: $($PreserveSubmodules -join ', ')" -ForegroundColor DarkYellow
+            }
         } else {
             foreach ($item in $items) {
                 Copy-Item -Path $item.FullName -Destination $Destination -Recurse -Force
             }
             Write-Host "  ✓ $count directories" -ForegroundColor Green
+            if ($PreserveSubmodules.Count -gt 0) {
+                Write-Host "  ⊙ Preserved submodules: $($PreserveSubmodules -join ', ')" -ForegroundColor DarkCyan
+            }
         }
     } else {
         Write-Host "  ⊘ Directory not found" -ForegroundColor DarkGray
@@ -102,7 +115,9 @@ Backup-File "$geminiSource\GEMINI.md" "$geminiDest\GEMINI.md"
 Write-Host "  Skills:" -ForegroundColor DarkCyan
 Backup-Directory "$geminiSource\skills" "$ProjectRoot\skills\gemini"
 Write-Host "  Extensions:" -ForegroundColor DarkCyan
-Backup-Directory "$geminiSource\extensions" "$ProjectRoot\extensions\gemini" -Exclude @("extension-enablement.json")
+# 排除 submodule 目錄，避免覆蓋 git 連結
+$geminiSubmodules = @("datacommons", "huggingface-skills")
+Backup-Directory "$geminiSource\extensions" "$ProjectRoot\extensions\gemini" -Exclude @("extension-enablement.json") -PreserveSubmodules $geminiSubmodules
 Backup-File "$geminiSource\extensions\extension-enablement.json" "$ProjectRoot\extensions\gemini\extension-enablement.json"
 Write-Host ""
 
