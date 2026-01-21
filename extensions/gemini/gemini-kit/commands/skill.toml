@@ -1,0 +1,385 @@
+description = "Tạo skill mới từ documentation, llms.txt, hoặc GitHub repo"
+
+prompt = """
+# 🎯 SKILL CREATOR
+
+Create new skill:
+
+**Input:** {{args}}
+
+## INPUT TYPES
+
+| Type | Example |
+|------|---------|
+| Natural language | `/skill create MongoDB integration skill` |
+| llms.txt URL | `/skill create https://docs.example.com/llms.txt` |
+| GitHub repo | `/skill create https://github.com/org/repo` |
+
+---
+
+## 4-PHASE WORKFLOW
+
+### Phase 1: Research (2-3 min)
+- Fetch documentation (llms.txt, GitHub, web)
+- Analyze domain knowledge required
+- Identify key concepts and patterns
+- Map out skill structure
+- Research best practices
+
+### Phase 2: Implementation (3-5 min)
+- Write skill prompt file
+- Structure knowledge sections
+- Create usage examples
+- Define when to use skill
+- Include best practices
+
+### Phase 3: Review (1-2 min)
+- Validate skill structure
+- Check completeness
+- Verify examples work
+- Ensure clear instructions
+
+### Phase 4: Evaluation (1 min)
+- Test skill activation
+- Verify skill prompt loads
+- Check examples are clear
+
+---
+
+## SKILL FILE STRUCTURE
+
+Create skill file at: `~/.gemini-kit/skills/[skill-name].md`
+
+```markdown
+# [Skill Name] Skill
+
+## When to Use
+- [Condition 1]
+- [Condition 2]
+
+## Key Concepts
+
+### [Topic 1]
+[Knowledge content]
+
+### [Topic 2]
+[Knowledge content]
+
+## Examples
+
+### Example 1: [Scenario]
+[Step-by-step example]
+
+### Example 2: [Scenario]
+[Step-by-step example]
+
+## Best Practices
+- [Practice 1]
+- [Practice 2]
+
+## Common Patterns
+[Code patterns and templates]
+
+## Troubleshooting
+| Issue | Solution |
+|-------|----------|
+| [Issue 1] | [Solution 1] |
+```
+
+---
+
+## COMMON SKILL TYPES
+
+| Type | Examples |
+|------|----------|
+| Framework | React, Vue, Next.js, Flutter |
+| Cloud | AWS, GCP, Azure, Vercel |
+| Database | MongoDB, PostgreSQL, Redis |
+| Tools | Docker, Kubernetes, Terraform |
+| Domain | Auth, Payment, Email, AI/ML |
+
+---
+
+## OUTPUT FILES
+
+After creation:
+1. **Skill file:** `~/.gemini-kit/skills/[name].md`
+2. **Activation:** Skill auto-activates on matching keywords
+
+---
+
+## USAGE EXAMPLES
+
+```bash
+# From description
+/skill create MongoDB integration with Node.js
+
+# From llms.txt
+/skill create https://docs.stripe.com/llms.txt
+
+# From GitHub
+/skill create https://github.com/prisma/prisma
+```
+
+---
+
+## FIX-LOGS MODE
+
+When input starts with "fix-logs" or "fix":
+
+**Syntax:**
+```bash
+/skill fix-logs [skill-name]
+/skill fix mongodb-skill
+```
+
+### 5-Step Workflow:
+
+**Step 1: Log Analysis**
+- Read logs.txt file
+- Identify skill-related errors
+- Extract error messages and context
+- Map errors to skill sections
+
+**Step 2: Skill Diagnosis**
+- Analyze current skill content
+- Compare with error patterns
+- Identify root causes
+- Find incorrect examples
+
+**Step 3: Fix Planning**
+- List issues to address
+- Plan content additions
+- Identify sections to rewrite
+
+**Step 4: Skill Update**
+- Update problematic sections
+- Add missing information
+- Fix code examples
+- Improve error handling guidance
+
+**Step 5: Validation**
+- Verify fixes address logged issues
+- Test updated examples
+- Validate skill structure
+
+**Output:**
+```
+✓ Analyzed: 15 errors in logs.txt
+✓ Identified: 3 skill issues
+  - Incorrect webhook verification code
+  - Missing SDK import example
+  - Outdated API endpoint
+
+✓ Fixed: mongodb-skill.md
+  - Updated webhook example
+  - Added SDK import section
+  - Fixed API endpoints
+
+Validation: PASSED
+```
+
+---
+
+## ADD MODE
+
+When input starts with "add":
+
+**Syntax:**
+```bash
+/skill add [skill-name] [reference]
+/skill add mongodb https://docs.mongodb.com/llms.txt
+/skill add stripe /path/to/examples.md
+```
+
+### Reference Types:
+| Type | Example |
+|------|---------|
+| URL | `https://docs.stripe.com/api` |
+| File | `/path/to/reference.md` |
+| Script | `validate-webhook.sh` |
+
+### 5-Step Workflow:
+
+**Step 1: Validate Skill**
+- Check skill exists
+- Load current skill structure
+
+**Step 2: Analyze Reference Type**
+- Detect URL/File/Script
+- Validate format
+
+**Step 3: Process Reference**
+- URLs: Fetch and extract content
+- Files: Read and validate
+- Scripts: Create executable
+
+**Step 4: Update Skill**
+- Add reference to skill file
+- Structure for token efficiency
+- Core content vs on-demand
+
+**Step 5: Test Activation**
+- Verify skill still loads
+- Test new references accessible
+
+**Output:**
+```
+Adding reference to mongodb skill...
+✓ Skill found: ~/.gemini-kit/skills/mongodb.md
+✓ Reference: https://docs.mongodb.com/llms.txt
+✓ Content: 12KB, 45 endpoints
+✓ Updated: mongodb.md
+
+New sections added:
+- API Endpoints (45)
+- Configuration Options (12)
+- Examples (8)
+```
+
+---
+
+## OPTIMIZE MODE
+
+When input starts with "optimize":
+
+**Syntax:**
+```bash
+/skill optimize [skill-name] "[goal]"
+/skill optimize mongodb "reduce token usage by 40%"
+/skill optimize stripe "improve clarity"
+```
+
+### Optimization Goals:
+| Goal | Action |
+|------|--------|
+| Token reduction | Remove duplicates, compress |
+| Clarity | Better instructions |
+| Examples | Add/improve examples |
+| Progressive disclosure | On-demand loading |
+
+### 7-Step Workflow:
+
+**Step 1: Read Skill Files**
+- Load skill content
+- Count tokens
+
+**Step 2: Analyze Against Goal**
+- Find optimization opportunities
+- Identify duplicates, verbose text
+
+**Step 3: Create Plan**
+- Token reduction targets
+- Risk assessment
+
+**Step 4: Present to User**
+```
+OPTIMIZATION PLAN
+Skill: mongodb
+Goal: Reduce tokens by 40%
+
+Current: 8,400 tokens
+Target:  5,040 tokens
+
+Proposed Changes:
+1. Consolidate docs: -1,200 tokens
+2. Progressive disclosure: -1,400 tokens
+3. Compress instructions: -800 tokens
+
+Estimated: 5,000 tokens (40.5% reduction)
+```
+
+**Step 5: Wait for Approval**
+- User confirms changes
+
+**Step 6: Execute**
+- Apply optimizations
+- Update skill file
+
+**Step 7: Test Optimized Skill**
+- Verify skill still works
+- Count new token usage
+
+**Output:**
+```
+✓ Optimized: mongodb skill
+  Before: 8,400 tokens
+  After:  5,000 tokens
+  Saved:  3,400 tokens (40.5%)
+```
+
+---
+
+## OPTIMIZE:AUTO MODE
+
+When input starts with "optimize:auto" or "optimize-auto":
+
+**Syntax:**
+```bash
+/skill optimize:auto [skill-name] "[goal]"
+/skill optimize:auto mongodb "reduce tokens"
+```
+
+### Difference from /skill optimize:
+| Feature | optimize | optimize:auto |
+|---------|----------|---------------|
+| Approval | ✅ Required | ❌ No |
+| Backup | ❌ | ✅ Auto |
+| Rollback | ❌ | ✅ Auto |
+
+### 6-Step Workflow:
+
+**Step 1: Create Backup**
+```
+Backup: ~/.gemini-kit/skills/mongodb/.backup-251215-2110/
+```
+
+**Step 2: Analyze Goal**
+- Find optimization opportunities
+
+**Step 3: Apply Changes**
+- No approval needed
+- Apply immediately
+
+**Step 4: Validate Syntax**
+- Check skill still valid
+
+**Step 5: Test Activation**
+- Verify skill loads
+
+**Step 6: Report or Rollback**
+- Success: Report changes
+- Failure: Auto rollback from backup
+
+**Output:**
+```
+✓ Backup created
+✓ Analyzed: 3 opportunities found
+✓ Applied: 3 changes
+  - Consolidated docs: -800 tokens
+  - Progressive disclosure: -1,200 tokens
+  - Compressed instructions: -400 tokens
+✓ Syntax valid
+✓ Activation successful
+
+Result: 6,400 → 4,000 tokens (37.5% saved)
+```
+
+**Rollback (if error):**
+```
+❌ Activation failed
+✓ Rolling back from backup...
+✓ Restored original skill
+```
+
+---
+
+Now process: "{{args}}"
+"""
+
+# ---
+# USAGE:
+# /skill create [description]     - Create from description
+# /skill create [llms.txt URL]    - Create from llms.txt
+# /skill create [github URL]      - Create from GitHub repo
+# ---

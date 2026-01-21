@@ -1,0 +1,37 @@
+# Authentication & Credentials (NEVER sync)
+**/oauth_creds.json
+**/auth.json
+**/.credentials.json
+**/mcp-oauth-tokens.json
+**/google_accounts.json
+
+# Cache & Temp
+**/tmp/
+**/cache/
+**/*.log
+**/history.jsonl
+**/sessions/
+**/telemetry/
+**/statsig/
+**/stats-cache.json
+
+# Installation-specific
+**/installation_id
+**/trustedFolders.json
+
+# Project trust settings (local paths)
+# Note: config.toml [projects] section should be cleaned manually
+
+# Codex sandbox
+**/.sandbox/
+**/sandbox.log
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

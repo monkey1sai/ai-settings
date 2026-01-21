@@ -1,0 +1,440 @@
+# Fix - Smart Fix Commands
+# Usage: /fix [mode] [issue]
+# Intelligent fix for various issues
+
+description = "Smart fix for bugs, types, tests, UI, CI"
+
+
+
+prompt = """
+{{#if args}}
+# 🔧 Smart Fix
+
+**Input:** {{args}}
+
+## Parse Mode:
+
+Check the first word of "{{args}}":
+
+### If "fast":
+Quick fix mode - minimal analysis, direct action:
+
+**Step 1: Quick Analysis**
+- Read issue description
+- Identify location from context
+- Minimal codebase scan
+
+**Step 2: Direct Fix**
+- ESLint with `--fix` flag
+- Prettier formatting
+- Apply obvious fixes
+
+**Step 3: Testing**
+- Run relevant tests
+- Validate fix works
+- Check for regressions
+
+**Step 4: Summary Report**
+```
+✓ Files fixed: 3
+✓ Tests: Passing
+✓ Lint: Clean
+Confidence: High
+```
+
+### If "types":
+Fix TypeScript/Dart type errors with full workflow:
+
+**Step 1: Type Check Execution**
+- Detect project type (TypeScript or Dart)
+- Run type checker:
+```bash
+# TypeScript
+tsc --noEmit
+npm run typecheck
+
+# Dart/Flutter
+dart analyze
+flutter analyze
+```
+
+**Step 2: Error Analysis**
+- Categorize errors by type/severity
+- Identify patterns across errors
+- Prioritize by dependency order
+
+**Step 3: Fix Implementation**
+- Add proper type annotations
+- Fix type mismatches
+- Update function signatures
+- Resolve generic constraints
+
+**Step 4: Verification Loop**
+- Re-run type checker after fixes
+- Continue until clean type check
+- Ensure no regressions
+
+**Common Fix Patterns:**
+
+| Pattern | Before | After |
+|---------|--------|-------|
+| Null Safety | `user.profile.name` | `user.profile?.name ?? 'Unknown'` |
+| Type Annotation | `function(items)` | `function(items: Item[]): number` |
+| Generic Constraint | `<T>` | `<T extends {id: string}>` |
+| Union Type | direct access | `typeof value === 'string' ? ...` |
+
+**Quick Fixes:**
+```typescript
+// Null safety
+user.profile?.name ?? 'Unknown'
+
+// Type annotation
+function calc(items: CartItem[]): number { }
+
+// Generic constraint
+function findById<T extends {id: string}>(items: T[], id: string): T | undefined
+
+// Type guard
+if (typeof value === 'string') { value.toUpperCase() }
+```
+
+### If "hard":
+Complex fix mode for difficult bugs (10-15 min):
+
+**Stage 1: Discovery (2-3 min)**
+- Scan entire codebase for related code
+- Identify all files involved
+- Map dependencies and relationships
+```
+Files scanned: 1,247
+Files identified: 15
+Dependencies mapped: 43
+```
+
+**Stage 2: Root Cause Analysis (1-2 min)**
+- Analyze logs and error traces
+- Identify underlying causes
+- Distinguish symptoms from root causes
+```
+Root cause identified: [description]
+```
+
+**Stage 3: Research (1-2 min)**
+- Search for best practices
+- Review similar issues
+- Check for known solutions
+
+**Stage 4: Planning (1 min)**
+- Create detailed fix strategy
+- Plan implementation steps
+- Identify test scenarios
+```
+Strategy created: plans/fix-[issue].md
+Files to modify: 8
+Tests to add: 15
+```
+
+**Stage 5: Implementation (3-5 min)**
+- Implement fix following plan
+- Handle edge cases
+- Add error handling
+
+**Stage 6: Validation (1-2 min)**
+- Run full test suite
+- Validate edge cases
+- Check for regressions
+```
+✓ Unit tests: 45/45
+✓ Integration tests: 23/23
+✓ Regression tests: 67/67
+Coverage: 96%
+```
+
+**Use for:**
+- Complex authentication bugs
+- Memory leak investigation
+- Multi-file architecture issues
+- Race conditions
+
+### If "test":
+Fix failing tests with full pipeline:
+
+**Phase 1: Compile**
+- Run `tsc --noEmit` for TypeScript
+- Fix any syntax errors first
+
+**Phase 2: Run Tests**
+- Execute test suite (jest/vitest/pytest/go test)
+- Capture failures and errors
+
+**Phase 3: Debug**
+- Analyze failure stack traces
+- Find root cause of each failure
+
+**Phase 4: Plan**
+- Create fix plan for each failure
+- Prioritize by complexity
+
+**Phase 5: Implement**
+- Apply fixes to source code
+- Handle edge cases
+
+**Phase 6: Re-test**
+- Run tests again to verify
+- If still failing → loop back to Phase 3
+
+**Phase 7: Review**
+- Validate changes don't break other code
+- Check for side effects
+
+**Output:**
+```
+✗ 3 tests failed
+- auth/login.test.js: Expected 200, got 401
+
+Debugging...
+Root cause: JWT secret not loaded in test env
+
+Planning fix...
+Implementing...
+
+✓ All tests passing (48/48)
+```
+
+### If "ui":
+Fix UI/styling issues with visual analysis:
+
+**Step 1: Visual Analysis**
+- Analyze screenshot (if provided)
+- Extract layout, colors, spacing
+- Identify visual inconsistencies
+
+**Step 2: Code Location**
+- Find relevant component files
+- Identify CSS/styling files
+- Locate responsive breakpoints
+
+**Step 3: Root Cause Identification**
+- Analyze CSS rules
+- Check responsive design
+- Identify conflicts
+
+**Step 4: Fix Implementation**
+- Update styles
+- Adjust layouts
+- Fix responsive issues
+
+**Step 5: Visual Validation**
+- Suggest manual testing steps
+- Recommend browser testing
+
+**Common UI Issues:**
+
+| Type | Examples |
+|------|----------|
+| Layout | Misalignment, overflow, spacing |
+| Responsive | Mobile breaks, tablet overlap |
+| Visual | Z-index, colors, animations |
+| Interaction | Click/touch, hover, focus |
+
+**Quick Fixes:**
+```css
+/* Flexbox alignment */
+display: flex;
+align-items: center;
+justify-content: center;
+
+/* Responsive width */
+width: 100%;
+max-width: 1200px;
+
+/* Z-index stacking */
+position: relative;
+z-index: 10;
+
+/* Text overflow */
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+```
+
+### If "ci":
+Fix CI/CD failures with full analysis:
+
+**Step 1: Log Retrieval**
+- Use `gh run view --log-failed` to fetch logs
+- Parse error messages and stack traces
+- Identify failed steps
+```bash
+gh run view <run-id> --log-failed
+```
+
+**Step 2: Error Analysis**
+- Categorize failures (tests, build, lint, deploy)
+- Identify root causes
+- Distinguish flaky vs real failures
+- Map errors to files/lines
+
+**Step 3: Solution Research**
+- Search for similar CI issues
+- Review GitHub Actions docs
+- Check for known action issues
+
+**Step 4: Implementation**
+- Fix code issues (if code problem)
+- Update workflow config (if CI config)
+- Add missing dependencies
+- Adjust environment settings
+
+**Step 5: Verification**
+- Run tests locally
+- Validate workflow syntax: `actionlint`
+- Suggest manual verification
+
+**Common CI Failures:**
+| Issue | Solution |
+|-------|----------|
+| Dependency lock | `npm ci` instead of `npm install` |
+| Node version | Specify in `.nvmrc` |
+| Test timeout | Increase timeout limit |
+| Missing secrets | Check repo secrets |
+
+### If "logs":
+Analyze log files with full diagnostic workflow:
+
+**Step 1: Log Collection**
+- Read log file (./logs.txt or specified)
+- Identify all errors and warnings
+- Capture stack traces
+- Collect contextual info
+
+**Step 2: Root Cause Analysis**
+- Correlate events across entries
+- Identify patterns and anomalies
+- Trace execution paths
+- Determine underlying causes
+
+**Step 3: Solution Development**
+- Create diagnostic report
+- Design targeted fixes
+- Implement fixes systematically
+
+**Step 4: Verification**
+- Re-analyze logs after fixes
+- Ensure issues are resolved
+- Confirm no new issues
+- Provide final status report
+
+**Supported Log Formats:**
+```
+# Standard logs
+2025-10-29T14:23:45.123Z [ERROR] Database connection failed
+
+# JSON logs
+{"timestamp":"...","level":"error","message":"Request failed"}
+
+# Stack traces
+Error: Cannot read property 'id' of null
+    at UserController.getProfile (src/user.ts:89:15)
+```
+
+**Log Collection Commands:**
+```bash
+docker logs <container> > logs.txt     # Docker
+kubectl logs <pod> > logs.txt          # Kubernetes
+gh run view <id> --log > logs.txt      # GitHub Actions
+```
+
+### If "parallel":
+Fix multiple independent issues in parallel:
+
+**Step 1: Parse Issues**
+Extract from numbered/bulleted list:
+```
+Input: "1. Button bug 2. API error 3. Typo"
+Parsed: 3 independent issues
+```
+
+**Step 2: Validate Independence**
+Check files don't overlap:
+```
+Issue 1: src/components/Button.tsx
+Issue 2: src/api/endpoints.ts
+Issue 3: src/components/Footer.tsx
+✓ No overlap - safe to parallelize
+```
+
+**Step 3: Fix Each Issue**
+Process all issues (conceptually parallel):
+- Analyze each issue
+- Find root cause
+- Implement fix
+- Verify fix
+
+**Step 4: Aggregate Results**
+```
+Results:
+✓ Issue 1: Fixed - Button.tsx
+✓ Issue 2: Fixed - endpoints.ts
+✓ Issue 3: Fixed - Footer.tsx
+Total: 3 files changed
+```
+
+**Usage:**
+```bash
+/fix parallel
+1. Button not clickable
+2. API returns 500
+3. Typo in footer
+```
+
+**Limits:**
+- Max 5 issues per batch
+- Issues must be independent
+- 10 min timeout per issue
+
+### Otherwise (specific issue):
+Debug the specific issue:
+1. Analyze the issue description
+2. Search for related code
+3. Provide step-by-step fix
+
+---
+
+Now process: "{{args}}"
+{{else}}
+# 🔧 Smart Fix Commands
+
+Intelligent fix for various issues.
+
+## Usage:
+```
+/fix <mode> [details]
+```
+
+## Available Modes:
+
+| Mode | Description |
+|------|-------------|
+| `/fix fast` | Quick lint + format |
+| `/fix types` | Fix TypeScript errors |
+| `/fix test` | Fix failing tests |
+| `/fix ui <component>` | Fix UI/CSS issues |
+| `/fix ci` | Fix CI/CD config |
+| `/fix logs [file]` | Analyze error logs |
+| `/fix <issue>` | Debug specific issue |
+
+## Examples:
+```
+/fix fast
+/fix types
+/fix test
+/fix ui Button component not responsive
+/fix ci GitHub Actions failing
+/fix logs npm-debug.log
+/fix The login form is not submitting
+```
+
+Choose a mode!
+{{/if}}
+"""

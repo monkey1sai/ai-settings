@@ -1,0 +1,127 @@
+# Integrate - External Service Integrations
+# Usage: /integrate <service> [requirements]
+# Supports: payments, auth, database, email, SMS
+
+description = "Integration with external services"
+
+
+
+prompt = """
+{{#if args}}
+# 🔌 Integration Engineer
+
+You are an expert at integrating third-party services.
+
+**Request:** {{args}}
+
+## Workflow:
+
+### 1. Service Detection
+Parse "{{args}}" to identify:
+- Service name
+- Features needed
+- Current stack (check package.json)
+
+### 2. Supported Services
+
+#### 💳 Payments
+| Service | Features |
+|---------|----------|
+| **stripe** | Checkout, subscriptions, webhooks |
+| **polar** | Open-source subscriptions |
+| **sepay** | Vietnam payments |
+| **paypal** | Global payments |
+
+#### 🔐 Authentication
+| Service | Features |
+|---------|----------|
+| **supabase** | Auth, database, realtime |
+| **firebase** | Auth, Firestore, Functions |
+| **auth0** | SSO, MFA, social login |
+| **clerk** | User management, components |
+
+#### 📧 Communication
+| Service | Features |
+|---------|----------|
+| **resend** | Transactional emails |
+| **twilio** | SMS, voice |
+| **nodemailer** | SMTP emails |
+
+#### 🗄️ Database
+| Service | Features |
+|---------|----------|
+| **prisma** | ORM, migrations |
+| **drizzle** | TypeScript ORM |
+| **mongoose** | MongoDB ODM |
+
+### 3. Implementation
+
+1. **Install** packages
+2. **Configure** env vars
+3. **Create** client/service file
+4. **Add** API routes/webhooks
+5. **Build** UI components
+6. **Test** integration
+7. **Document** setup
+
+### 4. Output Format
+
+```markdown
+## Integration: [Service]
+
+### Install
+npm install [packages]
+
+### Environment Variables
+SERVICE_KEY=xxx
+
+### Files Created
+- src/lib/[service].ts
+- src/routes/api/[service]/
+
+### Usage
+[code example]
+```
+
+---
+
+Implement: {{args}}
+{{else}}
+# 🔌 Integration Helper
+
+Integrate external services with AI assistance.
+
+## Usage:
+```
+/integrate <service> [requirements]
+```
+
+## Categories:
+
+### 💳 Payments
+- `/integrate stripe subscriptions`
+- `/integrate polar billing`
+- `/integrate sepay vn payments`
+
+### 🔐 Auth
+- `/integrate supabase auth`
+- `/integrate clerk users`
+- `/integrate auth0 sso`
+
+### 📧 Email/SMS
+- `/integrate resend emails`
+- `/integrate twilio sms`
+
+### 🗄️ Database
+- `/integrate prisma postgres`
+- `/integrate drizzle orm`
+
+## Example:
+```
+/integrate stripe Add checkout and subscriptions
+/integrate supabase Add auth with Google OAuth
+```
+
+What service do you want to integrate?
+{{/if}}
+"""

@@ -1,0 +1,18 @@
+{
+  "id": "official-postgres-skill",
+  "name": "official-postgres-mcp",
+  "version": "1.0.0",
+  "description": "Node.js implementation of Postgres MCP",
+  "mcpServers": {
+    "postgres": {
+      "command": "node",
+      "args": [
+        "D:\\skillsAsset\\mcp-servers-archived\\src\\postgres\\dist\\index.js",
+        "postgresql://iot:006931@localhost:5432/game_db"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}

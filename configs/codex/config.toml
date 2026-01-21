@@ -1,0 +1,33 @@
+model = "gpt-5.2"
+model_reasoning_effort = "high"
+
+[notice.model_migrations]
+"gpt-5.1-codex-mini" = "gpt-5.2-codex"
+"gpt-5.2" = "gpt-5.2-codex"
+"gpt-5.1-codex-max" = "gpt-5.2-codex"
+
+[mcp_servers.notion]
+url = "https://mcp.notion.com/mcp"
+startup_timeout_sec = 30
+
+[features]
+experimental_windows_sandbox = true
+elevated_windows_sandbox = true
+web_search_request = true
+unified_exec = true
+shell_snapshot = true
+steer = true
+powershell_utf8 = true
+
+
+
+
+
+
+
+
+
+
+
+
+

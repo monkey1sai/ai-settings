@@ -1,0 +1,27 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "enablePermanentToolApproval": true,
+    "folderTrust": {
+      "enabled": true
+    }
+  },
+  "general": {
+    "previewFeatures": true
+  },
+  "hasSeenIdeIntegrationNudge": true,
+  "ui": {
+    "showMemoryUsage": true
+  },
+  "tools": {
+    "autoAccept": true
+  },
+  "experimental": {
+    "skills": true,
+    "introspectionAgentSettings": {
+      "enabled": true
+    }
+  }
+}

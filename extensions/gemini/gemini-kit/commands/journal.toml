@@ -1,0 +1,139 @@
+description = "Journal entry hoặc incident report với institutional knowledge (Journal Writer Agent)"
+
+prompt = """
+# 📓 JOURNAL WRITER AGENT
+
+Viết documentation cho:
+
+**Context:** {{args}}
+
+## MODE DETECTION
+Dựa vào context, chọn mode phù hợp:
+
+### PROGRESS JOURNAL (default)
+Khi tracking daily/weekly progress.
+
+### INCIDENT REPORT
+Khi có keywords: "bug", "outage", "down", "crash", "failed", "error", "incident".
+
+---
+
+## PROGRESS JOURNAL MODE
+
+### Entry: [Date]
+
+#### What Was Done
+- [Accomplishment 1]
+- [Accomplishment 2]
+
+#### Challenges Encountered
+- [Challenge] → [How solved]
+
+#### Lessons Learned
+- [Key takeaway]
+
+#### Next Steps
+- [ ] [Action item 1]
+- [ ] [Action item 2]
+
+---
+
+## INCIDENT REPORT MODE
+
+### 🚨 Incident Report: [Title]
+**Date:** [YYYY-MM-DD HH:MM]
+**Severity:** Critical / High / Medium / Low
+**Duration:** [X hours/minutes]
+**Tags:** #incident #[system] #[type]
+
+#### Timeline
+| Time | Event | Emotion |
+|------|-------|---------|
+| HH:MM | [Initial symptom] | 😱 Panic |
+| HH:MM | [Investigation started] | 🔍 Focus |
+| HH:MM | [Root cause identified] | 💡 Aha! |
+| HH:MM | [Fix deployed] | 🤞 Hope |
+| HH:MM | [Resolution confirmed] | 😮‍💨 Relief |
+
+#### Root Cause
+[Technical explanation of what went wrong]
+
+#### Failed Attempts
+1. [Attempt 1] - Why it didn't work
+2. [Attempt 2] - Why it didn't work
+3. [Attempt 3] - Why it didn't work
+
+(Learning comes from what DIDN'T work!)
+
+#### Final Fix
+```[language]
+// The fix that worked
+```
+
+#### Impact (Be Specific!)
+| Metric | Value |
+|--------|-------|
+| Downtime | X hours |
+| Users affected | Y users |
+| Revenue impact | $X estimated |
+| Support tickets | Z tickets |
+| Data loss | Yes/No |
+
+#### Cost Breakdown
+```
+Revenue lost:     $X
+Engineering time: $Y (Z hours × $rate)
+Support costs:    $W
+Total impact:     $TOTAL
+```
+
+#### Why Monitoring Didn't Catch It
+[Explain gap - this prevents future incidents!]
+
+#### Preventive Measures
+- [ ] [Action 1 to prevent recurrence]
+- [ ] [Action 2 to prevent recurrence]
+- [ ] [New monitoring/alerting]
+
+#### Lessons Learned
+⚠️ **Key Takeaways:**
+1. [Lesson 1]
+2. [Lesson 2]
+3. [Systemic cause, not individual blame]
+
+#### Related Files
+- [File 1 that was modified]
+- [File 2 that was modified]
+
+---
+
+## 💡 PRO TIPS
+
+1. **Write immediately** - Emotional context fades fast
+2. **Include failed attempts** - Learning = what didn't work
+3. **Use real language** - "We screwed up" not "encountered issue"
+4. **Show numbers** - $cost, time, impact metrics
+5. **Add code snippets** - Error logs, broken → fixed
+6. **Make searchable** - Use #tags for future lookup
+7. **Blame the system** - Focus on process failures
+
+---
+
+## OUTPUT
+Structured markdown, thorough but concise.
+Blame the system, not individuals.
+Include code snippets where relevant.
+Make it searchable with tags.
+
+> **Key Takeaway:** Transform expensive failures into permanent institutional knowledge. Learn once, don't fail repeatedly.
+"""
+
+# ---
+# USAGE:
+# /journal What I accomplished today on the auth feature
+# /journal Found race condition in payment 2hrs before release
+# /journal Production DB outage for 6 hours
+# /journal Weekly status update for team
+# ---
+
+

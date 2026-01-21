@@ -1,0 +1,205 @@
+{
+  "version": 2,
+  "plugins": {
+    "superpowers@superpowers-marketplace": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\superpowers-marketplace\\superpowers\\4.0.3",
+        "version": "4.0.3",
+        "installedAt": "2026-01-12T03:02:50.399Z",
+        "lastUpdated": "2026-01-12T03:02:50.399Z",
+        "gitCommitSha": "b9e16498b9b6b06defa34cf0d6d345cd2c13ad31"
+      }
+    ],
+    "agent-sdk-dev@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\agent-sdk-dev\\unknown",
+        "version": "unknown",
+        "installedAt": "2026-01-13T02:09:11.463Z",
+        "lastUpdated": "2026-01-13T02:09:11.463Z"
+      }
+    ],
+    "pyright-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\pyright-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T02:10:50.939Z",
+        "lastUpdated": "2026-01-13T02:10:50.939Z"
+      }
+    ],
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\typescript-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T02:11:11.183Z",
+        "lastUpdated": "2026-01-13T02:11:11.183Z"
+      }
+    ],
+    "rust-analyzer-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\rust-analyzer-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T02:12:03.045Z",
+        "lastUpdated": "2026-01-13T02:12:03.045Z"
+      }
+    ],
+    "commit-commands@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\commit-commands\\unknown",
+        "version": "unknown",
+        "installedAt": "2026-01-13T02:12:10.887Z",
+        "lastUpdated": "2026-01-13T02:12:10.887Z"
+      }
+    ],
+    "php-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\php-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T02:12:37.581Z",
+        "lastUpdated": "2026-01-13T02:12:37.581Z"
+      }
+    ],
+    "gopls-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\gopls-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T02:12:57.370Z",
+        "lastUpdated": "2026-01-13T02:12:57.370Z"
+      }
+    ],
+    "clangd-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\clangd-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T02:13:11.922Z",
+        "lastUpdated": "2026-01-13T02:13:11.922Z"
+      }
+    ],
+    "jdtls-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\jdtls-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T02:13:24.610Z",
+        "lastUpdated": "2026-01-13T02:13:24.610Z"
+      }
+    ],
+    "csharp-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\csharp-lsp\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T02:13:32.611Z",
+        "lastUpdated": "2026-01-13T02:13:32.611Z"
+      }
+    ],
+    "supabase@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\supabase\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-13T07:44:08.962Z",
+        "lastUpdated": "2026-01-13T07:44:08.962Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "code-review@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\code-review\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-13T08:52:41.704Z",
+        "lastUpdated": "2026-01-13T08:52:41.704Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "playwright@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\playwright\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-13T08:56:13.777Z",
+        "lastUpdated": "2026-01-13T08:56:13.777Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "plugin-dev@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\plugin-dev\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-13T08:56:54.462Z",
+        "lastUpdated": "2026-01-13T08:56:54.462Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "huggingface-skills@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\huggingface-skills\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-13T09:05:31.215Z",
+        "lastUpdated": "2026-01-13T09:05:31.215Z",
+        "gitCommitSha": "b417fadb46e3010bb12841e3372f70fb44f1adf7"
+      }
+    ],
+    "gitlab@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\gitlab\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-13T09:05:57.684Z",
+        "lastUpdated": "2026-01-13T09:05:57.684Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "context7@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\context7\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-19T07:19:02.158Z",
+        "lastUpdated": "2026-01-19T07:19:02.158Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "explanatory-output-style@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\explanatory-output-style\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-19T07:48:01.466Z",
+        "lastUpdated": "2026-01-19T07:48:01.466Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\frontend-design\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-19T07:50:39.301Z",
+        "lastUpdated": "2026-01-19T07:50:39.301Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "superpowers-lab@superpowers-marketplace": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\superpowers-marketplace\\superpowers-lab\\0.2.0",
+        "version": "0.2.0",
+        "installedAt": "2026-01-19T07:51:28.331Z",
+        "lastUpdated": "2026-01-19T07:51:28.331Z",
+        "gitCommitSha": "344b07930e43610723f071b18972253b4d7e65e9"
+      }
+    ]
+  }
+}

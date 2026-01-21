@@ -1,0 +1,161 @@
+description = "Thiết kế UI/UX với multiple modes (Designer Agent)"
+
+prompt = """
+# 🎨 DESIGNER AGENT
+
+Design request:
+
+**Task:** {{args}}
+
+## MODE DETECTION
+
+| Mode | Trigger | Speed | Output |
+|------|---------|-------|--------|
+| **FAST** | "fast", "quick" | 60-120s | Rapid mockup |
+| **GOOD** | "good", "production" | 3-5min | Production-ready |
+| **UI** | "ui", "visual" | 2-3min | Wireframes, layout |
+| **UX** | "ux", "flow" | 2-3min | User flows |
+| **3D** | "3d", "three" | 3-5min | Three.js scene |
+| **DESCRIBE** | "describe", "extract" | 1min | Extract from image |
+| **AUDIT** | "audit", "wcag" | 2min | Accessibility check |
+| **SYSTEM** | "system", "tokens" | 3min | Design tokens |
+
+---
+
+## FAST MODE - Rapid Prototyping (60-120s)
+Quick mockup với:
+- Basic layout structure
+- Placeholder content
+- Core components only
+
+## GOOD MODE - Production Ready (3-5min)
+Full implementation với:
+- Semantic HTML
+- Responsive breakpoints
+- Accessibility
+- Animations
+
+---
+
+## 3D MODE - Three.js Scene
+
+```javascript
+// Three.js setup
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, w/h, 0.1, 1000);
+
+// Orbit controls
+const controls = new OrbitControls(camera, renderer.domElement);
+
+// PBR Materials + HDR Lighting
+const material = new THREE.MeshStandardMaterial({
+  map: texture,
+  roughness: 0.5,
+  metalness: 0.3
+});
+```
+
+**Output:** 360° rotation, zoom/pan, color variants
+
+---
+
+## DESCRIBE MODE - Extract from Image
+
+**Input:** Screenshot/image path
+**Output:**
+| Property | Value |
+|----------|-------|
+| Primary Color | #3B82F6 |
+| Secondary | #10B981 |
+| Font | Inter |
+| Heading Size | 48px |
+| Spacing | 8px grid |
+| Border Radius | 8px |
+
+---
+
+## CRO BEST PRACTICES (Built-in)
+
+### Above the Fold
+- [ ] Clear headline
+- [ ] Primary CTA visible
+- [ ] Social proof (logos/testimonials)
+- [ ] Trust signals (security badges)
+
+### Layout Patterns
+- **Bento Grid:** Mixed-size cards (Apple/Linear style)
+- **Glassmorphism:** `backdrop-blur-md bg-white/10`
+- **Sticky Nav:** Fixed header on scroll
+
+---
+
+## CORE WEB VITALS TARGETS
+
+| Metric | Target | How |
+|--------|--------|-----|
+| **LCP** | <2.5s | Lazy loading, optimized images |
+| **FID** | <100ms | Minimal JS, async loading |
+| **CLS** | <0.1 | Reserved space, font-display |
+
+---
+
+## VISUAL SPECS (UI Mode)
+```ascii
++-----------------------------------+
+|  [Logo]                 [Profile] |
+|-----------------------------------|
+|  Hero Title                       |
+|  [ CTA Button ]                   |
+|-----------------------------------|
+|  [Card 1]  [Card 2]  [Card 3]     |
++-----------------------------------+
+```
+
+---
+
+## USER FLOW (UX Mode)
+```mermaid
+graph TD
+    A[Start] --> B{Condition}
+    B -- Yes --> C[Screen 1]
+    B -- No --> D[Screen 2]
+    C --> E[End]
+```
+
+---
+
+## COMPONENT SPECS (System Mode)
+```typescript
+interface ButtonProps {
+  variant: 'primary' | 'secondary' | 'ghost';
+  size: 'sm' | 'md' | 'lg';
+}
+```
+**Tailwind:**
+- Primary: `bg-blue-600 hover:bg-blue-700 text-white`
+- Bento: `grid grid-cols-4 gap-4 auto-rows-[200px]`
+- Glass: `backdrop-blur-md bg-white/10 border border-white/20`
+
+---
+
+## ACCESSIBILITY (Audit Mode)
+- [ ] Color Contrast AA/AAA
+- [ ] Focus States
+- [ ] Semantic HTML
+- [ ] ARIA Labels
+- [ ] Keyboard Navigation
+
+> **Key Takeaway:** Ship award-winning interfaces in minutes. WCAG + Lighthouse 90+ out of the box.
+"""
+
+# ---
+# USAGE:
+# /design fast landing page
+# /design good dashboard with charts
+# /design 3d product viewer
+# /design describe ./screenshot.png
+# /design audit login page
+# /design system button component
+# ---
+
+
