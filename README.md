@@ -4,7 +4,19 @@
 
 ## 🚀 快速開始
 
-### 備份現有設定
+### 同步設定到雲端（推薦）
+當本機設定有變更時，執行此指令一鍵備份並推送：
+```powershell
+.\scripts\sync.ps1
+```
+
+可選參數：
+```powershell
+.\scripts\sync.ps1 -Message "新增 Gemini skill"  # 自訂 commit 訊息
+.\scripts\sync.ps1 -DryRun                        # 預覽模式
+```
+
+### 僅備份（不推送）
 ```powershell
 .\scripts\backup.ps1
 ```
