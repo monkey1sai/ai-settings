@@ -18,6 +18,10 @@ unified_exec = true
 shell_snapshot = true
 steer = true
 powershell_utf8 = true
+undo = true
+child_agents_md = true
+
+
 
 
 

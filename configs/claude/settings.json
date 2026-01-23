@@ -23,5 +23,6 @@
     "superpowers-lab@superpowers-marketplace": true
   },
   "language": "繁體中文台灣用語",
-  "autoUpdatesChannel": "latest"
+  "autoUpdatesChannel": "latest",
+  "model": "haiku"
 }

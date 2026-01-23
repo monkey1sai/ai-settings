@@ -23,5 +23,8 @@
     "introspectionAgentSettings": {
       "enabled": true
     }
+  },
+  "ide": {
+    "enabled": true
   }
 }
