@@ -20,9 +20,14 @@
     "gitlab@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
-    "superpowers-lab@superpowers-marketplace": true
+    "superpowers-lab@superpowers-marketplace": true,
+    "feature-dev@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "figma@claude-plugins-official": true,
+    "greptile@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true
   },
   "language": "繁體中文台灣用語",
-  "autoUpdatesChannel": "latest",
-  "model": "haiku"
+  "autoUpdatesChannel": "latest"
 }

@@ -200,6 +200,66 @@
         "lastUpdated": "2026-01-19T07:51:28.331Z",
         "gitCommitSha": "344b07930e43610723f071b18972253b4d7e65e9"
       }
+    ],
+    "feature-dev@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\feature-dev\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-28T07:34:48.682Z",
+        "lastUpdated": "2026-01-28T07:34:48.682Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "code-simplifier@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\code-simplifier\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-28T07:35:00.487Z",
+        "lastUpdated": "2026-01-28T07:35:00.487Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "figma@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\figma\\1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-28T07:35:17.006Z",
+        "lastUpdated": "2026-01-28T07:35:17.006Z",
+        "gitCommitSha": "20aca44ee6ba6092037e943c151c067896828360"
+      }
+    ],
+    "greptile@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\greptile\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-28T07:36:07.766Z",
+        "lastUpdated": "2026-01-28T07:36:07.766Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "hookify@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\hookify\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-28T07:36:22.943Z",
+        "lastUpdated": "2026-01-28T07:36:22.943Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
+    ],
+    "ralph-loop@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "C:\\Users\\IOT\\.claude\\plugins\\cache\\claude-plugins-official\\ralph-loop\\f70b65538da0",
+        "version": "f70b65538da0",
+        "installedAt": "2026-01-28T07:36:36.271Z",
+        "lastUpdated": "2026-01-28T07:36:36.271Z",
+        "gitCommitSha": "f70b65538da094ff474a855e7a679fb2c2c8064f"
+      }
     ]
   }
 }

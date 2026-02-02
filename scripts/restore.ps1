@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    AI Settings Restore Script - 在新電腦上還原 AI CLI 設定
+    openAI CLI Restore Script - 在新電腦上還原 AI CLI 設定
 .DESCRIPTION
     ⚠️ 此腳本設計用於「新電腦」或「全新安裝」的情況！
     
@@ -26,11 +26,17 @@ param(
 $ErrorActionPreference = "Stop"
 
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
-$UserHome = $env:USERPROFILE
+$UserHome = if ($HOME) {
+    $HOME
+} elseif ($env:USERPROFILE) {
+    $env:USERPROFILE
+} else {
+    [Environment]::GetFolderPath([Environment+SpecialFolder]::UserProfile)
+}
 $Timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
 
 Write-Host "╔══════════════════════════════════════════════╗" -ForegroundColor Red
-Write-Host "║     AI Settings Restore Script               ║" -ForegroundColor Red
+Write-Host "║     openAI CLI Restore Script                ║" -ForegroundColor Red
 Write-Host "║     ⚠️ 此腳本會修改本機設定！                ║" -ForegroundColor Red
 Write-Host "╚══════════════════════════════════════════════╝" -ForegroundColor Red
 Write-Host ""
@@ -168,26 +174,37 @@ function Restore-Directory {
 Write-Host "📦 Gemini CLI" -ForegroundColor Blue
 
 $geminiDest = Join-Path $UserHome ".gemini"
-$geminiSource = Join-Path $ProjectRoot "configs\gemini"
+$geminiSource = [IO.Path]::Combine($ProjectRoot, 'configs', 'gemini')
 
 # 備份現有設定檔（不備份整個目錄，只備份會被覆蓋的檔案）
-if (Test-Path "$geminiDest\settings.json") {
-    Backup-Existing -Path "$geminiDest\settings.json"
+$geminiSettingsPath = [IO.Path]::Combine($geminiDest, 'settings.json')
+$geminiMemoriesPath = [IO.Path]::Combine($geminiDest, 'GEMINI.md')
+if (Test-Path $geminiSettingsPath) {
+    Backup-Existing -Path $geminiSettingsPath
 }
-if (Test-Path "$geminiDest\GEMINI.md") {
-    Backup-Existing -Path "$geminiDest\GEMINI.md"
+if (Test-Path $geminiMemoriesPath) {
+    Backup-Existing -Path $geminiMemoriesPath
 }
 
-Restore-File -Source "$geminiSource\settings.json" -Destination "$geminiDest\settings.json"
-Restore-File -Source "$geminiSource\GEMINI.md" -Destination "$geminiDest\GEMINI.md"
+Restore-File -Source ([IO.Path]::Combine($geminiSource, 'settings.json')) -Destination $geminiSettingsPath
+Restore-File -Source ([IO.Path]::Combine($geminiSource, 'GEMINI.md')) -Destination $geminiMemoriesPath
 
 Write-Host "  Skills:" -ForegroundColor DarkCyan
-Restore-Directory -Source (Join-Path $ProjectRoot "skills\gemini") -Destination "$geminiDest\skills"
+$geminiSkillsSource = [IO.Path]::Combine($ProjectRoot, 'skills', 'gemini')
+$geminiSkillsDest = [IO.Path]::Combine($geminiDest, 'skills')
+Restore-Directory -Source $geminiSkillsSource -Destination $geminiSkillsDest
 
 Write-Host "  Extensions:" -ForegroundColor DarkCyan
 # 排除 submodule 目錄，它們會由 git submodule update 處理
 $geminiSubmodules = @("datacommons", "huggingface-skills")
-Restore-Directory -Source (Join-Path $ProjectRoot "extensions\gemini") -Destination "$geminiDest\extensions" -PreserveSubmodules $geminiSubmodules
+$geminiExtensionsSource = [IO.Path]::Combine($ProjectRoot, 'extensions', 'gemini')
+$geminiExtensionsDest = [IO.Path]::Combine($geminiDest, 'extensions')
+Restore-Directory -Source $geminiExtensionsSource -Destination $geminiExtensionsDest -PreserveSubmodules $geminiSubmodules
+
+# extensions/extension-enablement.json 是檔案，不會被 Restore-Directory 複製（它只複製目錄）
+$geminiExtensionEnableSource = [IO.Path]::Combine($geminiExtensionsSource, 'extension-enablement.json')
+$geminiExtensionEnableDest = [IO.Path]::Combine($geminiExtensionsDest, 'extension-enablement.json')
+Restore-File -Source $geminiExtensionEnableSource -Destination $geminiExtensionEnableDest
 
 Write-Host ""
 
@@ -198,22 +215,23 @@ Write-Host ""
 Write-Host "📦 Claude CLI" -ForegroundColor Blue
 
 $claudeDest = Join-Path $UserHome ".claude"
-$claudeSource = Join-Path $ProjectRoot "configs\claude"
+$claudeSource = [IO.Path]::Combine($ProjectRoot, 'configs', 'claude')
 
-if (Test-Path "$claudeDest\settings.json") {
-    Backup-Existing -Path "$claudeDest\settings.json"
+$claudeSettingsPath = [IO.Path]::Combine($claudeDest, 'settings.json')
+if (Test-Path $claudeSettingsPath) {
+    Backup-Existing -Path $claudeSettingsPath
 }
 
-Restore-File -Source "$claudeSource\settings.json" -Destination "$claudeDest\settings.json"
-Restore-File -Source "$claudeSource\settings.local.json" -Destination "$claudeDest\settings.local.json"
+Restore-File -Source ([IO.Path]::Combine($claudeSource, 'settings.json')) -Destination $claudeSettingsPath
+Restore-File -Source ([IO.Path]::Combine($claudeSource, 'settings.local.json')) -Destination ([IO.Path]::Combine($claudeDest, 'settings.local.json'))
 
 # Claude plugins
-$pluginsDest = "$claudeDest\plugins"
+$pluginsDest = [IO.Path]::Combine($claudeDest, 'plugins')
 if (-not (Test-Path $pluginsDest) -and -not $DryRun) {
     New-Item -ItemType Directory -Path $pluginsDest -Force | Out-Null
 }
-Restore-File -Source "$claudeSource\installed_plugins.json" -Destination "$pluginsDest\installed_plugins.json"
-Restore-File -Source "$claudeSource\known_marketplaces.json" -Destination "$pluginsDest\known_marketplaces.json"
+Restore-File -Source ([IO.Path]::Combine($claudeSource, 'installed_plugins.json')) -Destination ([IO.Path]::Combine($pluginsDest, 'installed_plugins.json'))
+Restore-File -Source ([IO.Path]::Combine($claudeSource, 'known_marketplaces.json')) -Destination ([IO.Path]::Combine($pluginsDest, 'known_marketplaces.json'))
 
 Write-Host ""
 
@@ -224,29 +242,33 @@ Write-Host ""
 Write-Host "📦 Codex CLI" -ForegroundColor Blue
 
 $codexDest = Join-Path $UserHome ".codex"
-$codexSource = Join-Path $ProjectRoot "configs\codex"
+$codexSource = [IO.Path]::Combine($ProjectRoot, 'configs', 'codex')
 
-if (Test-Path "$codexDest\config.toml") {
-    Backup-Existing -Path "$codexDest\config.toml"
+$codexConfigPath = [IO.Path]::Combine($codexDest, 'config.toml')
+$codexAgentsPath = [IO.Path]::Combine($codexDest, 'AGENTS.md')
+if (Test-Path $codexConfigPath) {
+    Backup-Existing -Path $codexConfigPath
 }
-if (Test-Path "$codexDest\AGENTS.md") {
-    Backup-Existing -Path "$codexDest\AGENTS.md"
+if (Test-Path $codexAgentsPath) {
+    Backup-Existing -Path $codexAgentsPath
 }
 
-Restore-File -Source "$codexSource\config.toml" -Destination "$codexDest\config.toml"
-Restore-File -Source "$codexSource\AGENTS.md" -Destination "$codexDest\AGENTS.md"
-Restore-File -Source "$codexSource\SYSTEM.md" -Destination "$codexDest\SYSTEM.md"
+Restore-File -Source ([IO.Path]::Combine($codexSource, 'config.toml')) -Destination $codexConfigPath
+Restore-File -Source ([IO.Path]::Combine($codexSource, 'AGENTS.md')) -Destination $codexAgentsPath
+Restore-File -Source ([IO.Path]::Combine($codexSource, 'SYSTEM.md')) -Destination ([IO.Path]::Combine($codexDest, 'SYSTEM.md'))
 
 Write-Host "  Skills:" -ForegroundColor DarkCyan
-Restore-Directory -Source (Join-Path $ProjectRoot "skills\codex") -Destination "$codexDest\skills"
+$codexSkillsSource = [IO.Path]::Combine($ProjectRoot, 'skills', 'codex')
+$codexSkillsDest = [IO.Path]::Combine($codexDest, 'skills')
+Restore-Directory -Source $codexSkillsSource -Destination $codexSkillsDest
 
 Write-Host "  Rules:" -ForegroundColor DarkCyan
-$rulesSource = Join-Path $ProjectRoot "rules\codex"
-$rulesDest = "$codexDest\rules"
+$rulesSource = [IO.Path]::Combine($ProjectRoot, 'rules', 'codex')
+$rulesDest = [IO.Path]::Combine($codexDest, 'rules')
 if (-not (Test-Path $rulesDest) -and -not $DryRun) {
     New-Item -ItemType Directory -Path $rulesDest -Force | Out-Null
 }
-Restore-File -Source "$rulesSource\default.rules" -Destination "$rulesDest\default.rules"
+Restore-File -Source ([IO.Path]::Combine($rulesSource, 'default.rules')) -Destination ([IO.Path]::Combine($rulesDest, 'default.rules'))
 
 Write-Host ""
 

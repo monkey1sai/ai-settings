@@ -1,5 +1,10 @@
 model = "gpt-5.2"
 model_reasoning_effort = "high"
+web_search = "live"
+suppress_unstable_features_warning = true
+
+[notice]
+hide_full_access_warning = true
 
 [notice.model_migrations]
 "gpt-5.1-codex-mini" = "gpt-5.2-codex"
@@ -13,13 +18,16 @@ startup_timeout_sec = 30
 [features]
 experimental_windows_sandbox = true
 elevated_windows_sandbox = true
-web_search_request = true
 unified_exec = true
 shell_snapshot = true
 steer = true
 powershell_utf8 = true
 undo = true
 child_agents_md = true
+
+
+
+
 
 
 

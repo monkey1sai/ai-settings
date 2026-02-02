@@ -18,3 +18,20 @@
 - 禁止使用全域 `pip` 或系統 Python。
 - 所有 Python / Pytest 指令，**必須明確使用虛擬環境路徑**：
   - Windows：`.venv\Scripts\python.exe`
+
+## Codex CLI 啟動警告（Memory / 排除方式）
+若進入 Codex CLI 時看到下列訊息，多半是 **`C:\Users\IOT\.codex\config.toml` 設定觸發的提示**，不是程式壞掉：
+
+### 1) `⚠ [features].web_search_request is deprecated...`
+- 原因：`[features].web_search_request = true` 已棄用。
+- 解法：刪除 `features.web_search_request`，改用頂層 `web_search`：
+  - `web_search = "live"`（或依需求用 `"cached"` / `"disabled"`）
+
+### 2) `⚠ Under-development features enabled...`
+- 原因：啟用了尚在開發中的 feature flags（例如 `child_agents_md`、`elevated_windows_sandbox`、`experimental_windows_sandbox`），Codex 會提醒可能不穩定。
+- 解法 A（保留功能、隱藏提示）：在 `config.toml` 加上：
+  - `suppress_unstable_features_warning = true`
+- 解法 B（真正停用不穩定功能）：在 `[features]` 將對應旗標改成 `false`。
+
+### 驗證
+- 修改 `config.toml` 後需重啟 Codex CLI；可用 `codex --help` 快速確認不再印出上述警告。

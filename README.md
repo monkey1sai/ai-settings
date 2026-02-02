@@ -1,6 +1,6 @@
-# AI Settings Manager
+# openAI CLI
 
-統一管理 **Gemini CLI**、**Claude CLI**、**Codex CLI** 的設定、技能與擴充套件。
+統一管理 **Gemini CLI**、**Claude CLI**、**Codex CLI** 的設定、技能與擴充套件（以 Git 同步到雲端，並可在其他系統部署後再同步推送）。
 
 ## 🚀 快速開始
 
@@ -19,15 +19,22 @@
 
 ### 在新電腦還原
 ```powershell
-git clone https://github.com/YOUR_USERNAME/ai-settings.git
-cd ai-settings
+git clone https://github.com/YOUR_USERNAME/openai-cli.git
+cd openai-cli
+git submodule update --init --recursive
 .\scripts\restore.ps1
+```
+
+### 在 macOS / Linux 執行（PowerShell 7）
+請先安裝 `pwsh`（PowerShell 7），再在 repo 根目錄執行：
+```bash
+pwsh ./scripts/sync.ps1
 ```
 
 ## 📁 專案結構
 
 ```
-ai-settings/
+openai-cli/
 ├── configs/          # 設定檔
 │   ├── gemini/       # settings.json, GEMINI.md
 │   ├── claude/       # settings.json, plugins.json
@@ -56,6 +63,13 @@ ai-settings/
 
 - **認證資料不會同步**，新電腦需要重新登入
 - Codex 的專案信任設定 (`[projects]`) 不會同步
+
+## ☁️ 推上雲端（Git）
+
+`sync.ps1` 會自動 `git add/commit/push`。在新機/新系統上：
+- 確認此 repo 已設定好遠端（`git remote -v`）
+- 確認你已完成 Git 身份驗證（例如 GitHub PAT/SSH Key）
+- 若 repo 使用 submodule，先跑 `git submodule update --init --recursive`
 
 ## 🔧 使用前提
 
