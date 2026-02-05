@@ -10,5 +10,5 @@ description: 當要開發或修改 Python 程式碼時使用。
   （Windows: `.venv\Scripts\python.exe`）。
 - 若不存在，執行 `uv venv --python3.11 .venv`
 - 優先直接呼叫 `.venv\Scripts\python.exe`
-- 與 `uv pip --python .venv\Scripts\python.exe`
+- 套件安裝使用 `uv pip install --python .venv\Scripts\python.exe <套件>`
 - 避免使用 activate

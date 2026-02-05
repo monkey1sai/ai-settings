@@ -1079,7 +1079,7 @@ Don't assume packages are available:
 "Use the pdf library to process the file."
 
 **Good example: Explicit about dependencies**:
-"Install required package: `pip install pypdf`
+"Install required package: `uv pip install --python .venv\Scripts\python.exe pypdf`
 
 Then use it:
 ```python

@@ -1,32 +1,7 @@
 {
-    "huggingface-skills":  {
-                               "overrides":  [
-                                                 "/C:/Users/IOT/*"
-                                             ]
-                           },
-    "nanobanana":  {
-                       "overrides":  [
-                                         "/C:/Users/IOT/*"
-                                     ]
-                   },
-    "datacommons":  {
-                        "overrides":  [
-                                          "/C:/Users/IOT/*"
-                                      ]
-                    },
-    "gemini-kit":  {
-                       "overrides":  [
-                                         "/C:/Users/IOT/*"
-                                     ]
-                   },
-    "supremepower":  {
-                         "overrides":  [
-                                           "/C:/Users/IOT/*"
-                                       ]
-                     },
-    "anthropic-skills":  {
-                             "overrides":  [
-                                               "/C:/Users/IOT/*"
-                                           ]
-                         }
+  "ai-dev-guardrails": {
+    "overrides": [
+      "/C:/Users/IOT/*"
+    ]
+  }
 }

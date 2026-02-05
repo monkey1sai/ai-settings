@@ -3367,7 +3367,7 @@ Use Form to declare form data input parameters.
 
 Example 1 (unknown):
 ```unknown
-$ pip install python-multipart
+$ uv pip install --python .venv\Scripts\python.exe python-multipart
 ```
 
 Example 2 (python):
@@ -3459,7 +3459,7 @@ You can use Pydantic models to declare form fields in FastAPI. 😎
 
 Example 1 (unknown):
 ```unknown
-$ pip install python-multipart
+$ uv pip install --python .venv\Scripts\python.exe python-multipart
 ```
 
 Example 2 (python):
@@ -4890,14 +4890,14 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4
 
 Example 2 (php):
 ```php
-$ pip install pyjwt
+$ uv pip install --python .venv\Scripts\python.exe pyjwt
 
 ---> 100%
 ```
 
 Example 3 (php):
 ```php
-$ pip install "pwdlib[argon2]"
+$ uv pip install --python .venv\Scripts\python.exe "pwdlib[argon2]"
 
 ---> 100%
 ```
@@ -6484,7 +6484,7 @@ Use File, bytes, and UploadFile to declare files to be uploaded in the request, 
 
 Example 1 (unknown):
 ```unknown
-$ pip install python-multipart
+$ uv pip install --python .venv\Scripts\python.exe python-multipart
 ```
 
 Example 2 (python):
@@ -6580,7 +6580,7 @@ Use File and Form together when you need to receive data and files in the same r
 
 Example 1 (unknown):
 ```unknown
-$ pip install python-multipart
+$ uv pip install --python .venv\Scripts\python.exe python-multipart
 ```
 
 Example 2 (python):
@@ -7161,9 +7161,9 @@ Copy the example in a file main.py:
 
 Prefer to use the Annotated version if possible.
 
-The python-multipart package is automatically installed with FastAPI when you run the pip install "fastapi[standard]" command.
+The python-multipart package is automatically installed with FastAPI when you run the `uv pip install --python .venv\Scripts\python.exe "fastapi[standard]"` command.
 
-However, if you use the pip install fastapi command, the python-multipart package is not included by default.
+However, if you use the `uv pip install --python .venv\Scripts\python.exe fastapi` command, the python-multipart package is not included by default.
 
 To install it manually, make sure you create a virtual environment, activate it, and then install it with:
 
@@ -7297,7 +7297,7 @@ async def read_items(token: str = Depends(oauth2_scheme)):
 
 Example 3 (unknown):
 ```unknown
-$ pip install python-multipart
+$ uv pip install --python .venv\Scripts\python.exe python-multipart
 ```
 
 Example 4 (jsx):
@@ -8155,7 +8155,7 @@ You can learn a lot more at the SQLModel docs, there's a longer mini tutorial on
 
 Example 1 (php):
 ```php
-$ pip install sqlmodel
+$ uv pip install --python .venv\Scripts\python.exe sqlmodel
 ---> 100%
 ```
 
@@ -8659,7 +8659,7 @@ It will detect the files and tests automatically, execute them, and report the r
 
 Example 1 (unknown):
 ```unknown
-$ pip install httpx
+$ uv pip install --python .venv\Scripts\python.exe httpx
 ```
 
 Example 2 (python):
@@ -8734,11 +8734,11 @@ The first step is to install FastAPI.
 
 Make sure you create a virtual environment, activate it, and then install FastAPI:
 
-When you install with pip install "fastapi[standard]" it comes with some default optional standard dependencies, including fastapi-cloud-cli, which allows you to deploy to FastAPI Cloud.
+When you install with `uv pip install --python .venv\Scripts\python.exe "fastapi[standard]"` it comes with some default optional standard dependencies, including fastapi-cloud-cli, which allows you to deploy to FastAPI Cloud.
 
-If you don't want to have those optional dependencies, you can instead install pip install fastapi.
+If you don't want to have those optional dependencies, you can instead install `uv pip install --python .venv\Scripts\python.exe fastapi`.
 
-If you want to install the standard dependencies but without the fastapi-cloud-cli, you can install with pip install "fastapi[standard-no-fastapi-cloud-cli]".
+If you want to install the standard dependencies but without the fastapi-cloud-cli, you can install with `uv pip install --python .venv\Scripts\python.exe "fastapi[standard-no-fastapi-cloud-cli]"`.
 
 There is also an Advanced User Guide that you can read later after this Tutorial - User guide.
 
@@ -8789,7 +8789,7 @@ $ <font color="#4E9A06">fastapi</font> dev <u style="text-decoration-style:solid
 
 Example 2 (php):
 ```php
-$ pip install "fastapi[standard]"
+$ uv pip install --python .venv\Scripts\python.exe "fastapi[standard]"
 
 ---> 100%
 ```

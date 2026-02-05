@@ -1,3 +1,14 @@
 {
+  "permissions": {
+    "allow": [
+      "Skill(SkillForge)",
+      "Bash(dir /s /b \"C:\\\\Users\\\\IOT\\\\.claude\\\\skills\\\\self-evolution\")",
+      "Bash(python knowledge_stats.py:*)",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(dir:*)",
+      "WebSearch"
+    ]
+  },
   "outputStyle": "Explanatory"
 }

@@ -1,6 +1,6 @@
 ---
 name: skillforge
-description: Route any user request, error, code, or URL to the right skill action—recommend existing skills, suggest improvements, or create new skills via a triage-first process.
+description: Use when the user asks which skill to use, wants to route a request to an existing skill, or wants to create/improve skills.
 ---
 
 # SkillForge (Codex CLI Port)
@@ -19,7 +19,7 @@ description: Route any user request, error, code, or URL to the right skill acti
 
 | Input | Output | Duration |
 |-------|--------|----------|
-| 任意描述需求/錯誤/目標 | 路由建議（USE / IMPROVE / CREATE / COMPOSE / CLARIFY） | 1-3 分鐘 |
+| 使用者詢問「該用哪個 skill」或「要建立/改進 skill」 | 路由建議（USE / IMPROVE / CREATE / COMPOSE / CLARIFY） | 1-3 分鐘 |
 
 ## Process
 

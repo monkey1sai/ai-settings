@@ -46,7 +46,7 @@ python-multipart
 **Pattern 4:** Make sure you create a virtual environment, activate it, and then install it, for example:
 
 ```
-$ pip install python-multipart
+$ uv pip install --python .venv\Scripts\python.exe python-multipart
 ```
 
 **Pattern 5:** For example:
@@ -93,7 +93,7 @@ from app.routers import items
 
 **Example 2** (php):
 ```php
-$ pip install "fastapi[standard]"
+$ uv pip install --python .venv\Scripts\python.exe "fastapi[standard]"
 
 ---> 100%
 ```

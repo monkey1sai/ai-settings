@@ -150,11 +150,11 @@ To understand more about it, see the section Benchmarks.
 
 FastAPI depends on Pydantic and Starlette.
 
-When you install FastAPI with pip install "fastapi[standard]" it comes with the standard group of optional dependencies:
+When you install FastAPI with `uv pip install --python .venv\Scripts\python.exe "fastapi[standard]"` it comes with the standard group of optional dependencies:
 
-If you don't want to include the standard optional dependencies, you can install with pip install fastapi instead of pip install "fastapi[standard]".
+If you don't want to include the standard optional dependencies, you can install with `uv pip install --python .venv\Scripts\python.exe fastapi` instead of `uv pip install --python .venv\Scripts\python.exe "fastapi[standard]"`.
 
-If you want to install FastAPI with the standard dependencies but without the fastapi-cloud-cli, you can install with pip install "fastapi[standard-no-fastapi-cloud-cli]".
+If you want to install FastAPI with the standard dependencies but without the fastapi-cloud-cli, you can install with `uv pip install --python .venv\Scripts\python.exe "fastapi[standard-no-fastapi-cloud-cli]"`.
 
 There are some additional dependencies you might want to install.
 
@@ -168,7 +168,7 @@ This project is licensed under the terms of the MIT license.
 
 Example 1 (php):
 ```php
-$ pip install "fastapi[standard]"
+$ uv pip install --python .venv\Scripts\python.exe "fastapi[standard]"
 
 ---> 100%
 ```

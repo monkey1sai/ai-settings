@@ -109,9 +109,12 @@ if [ -f package.json ]; then npm install; fi
 # Rust
 if [ -f Cargo.toml ]; then cargo build; fi
 
-# Python
-if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-if [ -f pyproject.toml ]; then poetry install; fi
+# Python (uv + .venv; follow python-dev-handbook)
+if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
+  uv venv --python3.11 .venv
+  if [ -f requirements.txt ]; then uv pip install --python .venv\Scripts\python.exe -r requirements.txt; fi
+  if [ -f pyproject.toml ]; then uv pip install --python .venv\Scripts\python.exe -e .; fi
+fi
 
 # Go
 if [ -f go.mod ]; then go mod download; fi
