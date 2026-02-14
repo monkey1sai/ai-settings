@@ -21,6 +21,7 @@ filters: {
 ```
 
 **Results Found:**
+
 - "Database Migration Proposal" (Engineering)
 - "Current Database Performance Issues" (Engineering)
 - "Migration Options Analysis" (Architecture)
@@ -48,6 +49,7 @@ id: "migration-options-analysis-page-id"
 ```
 
 **Extracted**: Three options analyzed:
+
 1. Stay on MongoDB with optimizations
 2. Migrate to PostgreSQL
 3. Hybrid approach (MongoDB + PostgreSQL)
@@ -62,6 +64,7 @@ id: "previous-migration-postmortem-page-id"
 ### Step 3: Synthesize Pre-Read
 
 **Key Information Identified:**
+
 - **Problem**: MongoDB performance degrading, schema flexibility causing data consistency issues
 - **Options**: Three approaches with different trade-offs
 - **Recommendation**: PostgreSQL migration favored by engineering team
@@ -89,11 +92,13 @@ pages: [{
 # Architecture Decision: Database Migration Strategy
 
 ## Meeting Details
+
 **Date & Time**: October 15, 2025 at 2:00 PM  
 **Duration**: 90 minutes  
 **Location**: Conference Room B / Zoom  
 **Facilitator**: Sarah Chen (Engineering Lead)  
 **Attendees**:
+
 - Sarah Chen (Engineering Lead)
 - David Kim (CTO)
 - Alice Wang (Backend Team Lead)
@@ -111,12 +116,14 @@ Our MongoDB database is experiencing performance degradation as we scale. Query 
 ### Current Situation
 
 **Performance metrics**:
+
 - Average query time: 400ms (was 50ms 6 months ago)
 - p95 query time: 1.2s (was 200ms)
 - Database size: 500GB (growing 20GB/month)
 - Connection pool exhaustion during peak traffic
 
 **Technical debt**:
+
 - 15+ application-layer validation rules compensating for lack of schema
 - Complex data migration scripts for schema changes
 - Limited transaction support causing race conditions
@@ -126,6 +133,7 @@ Our MongoDB database is experiencing performance degradation as we scale. Query 
 ### Historical Context
 
 We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Key learnings:
+
 - Underestimated application code changes (3 weeks instead of 1 week)
 - Rollback plan was crucial when we discovered compatibility issues
 - Parallel running period (dual writes) was essential for safe migration
@@ -138,7 +146,8 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 
 **Timeline**: Need decision by end of week to include in Q4 planning
 
-**Impact**: 
+**Impact**:
+
 - Engineering team (4-8 weeks of work)
 - Application architecture
 - Operations & monitoring
@@ -151,6 +160,7 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 **Description**: Invest in MongoDB performance tuning, add indexes, upgrade to latest version, implement better query patterns.
 
 **Pros**:
+
 - ✅ No migration complexity
 - ✅ Team familiar with MongoDB
 - ✅ Can implement immediately
@@ -158,6 +168,7 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 - ✅ Estimated 2 weeks effort
 
 **Cons**:
+
 - ❌ Doesn't solve fundamental schema flexibility issues
 - ❌ Still limited transaction support
 - ❌ Performance improvements may be temporary
@@ -174,6 +185,7 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 **Description**: Full migration from MongoDB to PostgreSQL. Redesign schema with proper constraints, implement dual-write period, then cut over.
 
 **Pros**:
+
 - ✅ Solves schema consistency issues
 - ✅ Full ACID transactions
 - ✅ Better performance for relational queries
@@ -181,6 +193,7 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 - ✅ Industry standard, easier hiring
 
 **Cons**:
+
 - ❌ High migration effort (6-8 weeks)
 - ❌ Requires schema redesign
 - ❌ Application code changes extensive
@@ -200,12 +213,14 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 **Description**: Keep MongoDB for document-heavy data (logs, analytics), migrate transactional data to PostgreSQL. Run both databases.
 
 **Pros**:
+
 - ✅ Phased migration (lower risk)
 - ✅ Use best tool for each data type
 - ✅ Can migrate incrementally
 - ✅ Smaller initial scope (4 weeks)
 
 **Cons**:
+
 - ❌ Increased operational complexity
 - ❌ Two databases to maintain
 - ❌ Data consistency between databases challenging
@@ -223,6 +238,7 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 **Description**: Accept current performance and continue with MongoDB as-is.
 
 **Implications**:
+
 - Performance continues to degrade
 - Technical debt increases
 - Feature development slows
@@ -234,24 +250,28 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 ## Discussion Topics
 
 ### Technical Feasibility
+
 1. Can we achieve < 4 hours downtime for Option B?
 2. What's the rollback plan if PostgreSQL migration fails?
 3. How do we handle data migration for 500GB?
 4. Schema design - what constraints do we need?
 
 ### Business Impact
+
 5. What's the customer impact of 4-6 hours downtime?
 6. Can we schedule migration during low-traffic period?
 7. How does this affect Q4 feature roadmap?
 8. Cost-benefit analysis over 2-year horizon?
 
 ### Risk Management
+
 9. What are the biggest risks with Option B?
 10. How do we test thoroughly before cutover?
 11. What's the rollback procedure and time?
 12. Do we have necessary expertise on team?
 
 ### Timeline & Resources
+
 13. Can we allocate 2 engineers full-time for 8 weeks?
 14. Do we need external consultants?
 15. What's the impact on other Q4 projects?
@@ -260,6 +280,7 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 ## Decision Framework
 
 **Evaluation criteria**:
+
 1. **Performance improvement**: Will this solve our performance issues?
 2. **Technical debt**: Does this reduce or increase complexity?
 3. **Risk**: What's the probability and impact of failure?
@@ -268,27 +289,28 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 6. **Reversibility**: Can we roll back if needed?
 
 **Decision makers**:
+
 - Primary: David Kim (CTO)
 - Consulted: Sarah Chen (Engineering), Bob Martinez (DevOps)
 - Informed: Product, Executive team
 
 ## Decision
 
-*[To be filled during meeting]*
+_[To be filled during meeting]_
 
-**Selected Option**: ___________________
+**Selected Option**: **\*\*\*\***\_\_\_**\*\*\*\***
 
 **Rationale**:
 
 **Timeline**:
 
-**Owner**: ___________________
+**Owner**: **\*\*\*\***\_\_\_**\*\*\*\***
 
 **Success Criteria**:
 
 ## Action Items
 
-*[To be filled during meeting]*
+_[To be filled during meeting]_
 
 - [ ] [Action item] - @[Owner] - Due: [Date]
 - [ ] [Action item] - @[Owner] - Due: [Date]
@@ -296,6 +318,7 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 ## Next Steps
 
 **Immediate**:
+
 - Document decision rationale
 - Create detailed implementation plan
 - Schedule kickoff meeting
@@ -305,12 +328,14 @@ We successfully migrated from Redis to Memcached in 2023, which took 6 weeks. Ke
 ## Related Resources
 
 ### Primary Sources
+
 - <mention-page url="...">Database Migration Proposal</mention-page>
 - <mention-page url="...">Current Database Performance Issues</mention-page>
 - <mention-page url="...">Migration Options Analysis</mention-page>
 - <mention-page url="...">Previous Migration Post-mortem</mention-page>
 
 ### Supporting Documents
+
 - MongoDB performance metrics dashboard
 - PostgreSQL evaluation results
 - Cost analysis spreadsheet
@@ -333,12 +358,14 @@ rich_text: [{
 ## Meeting Prep Complete ✅
 
 ### Meeting Details
+
 - **Topic**: Database Migration Strategy Decision
 - **Date**: October 15, 2025 at 2:00 PM
 - **Duration**: 90 minutes
 - **Attendees**: 5 (Engineering leads + CTO + Product)
 
 ### Agenda Created
+
 <mention-page url="...">Architecture Decision: Database Migration Strategy</mention-page>
 
 ### Pre-Read Summary
@@ -346,6 +373,7 @@ rich_text: [{
 **Problem**: MongoDB performance degrading (50ms → 400ms queries), schema flexibility causing issues
 
 **Decision needed**: Choose between:
+
 1. Stay on MongoDB (optimizations) - 2 weeks, low risk
 2. Migrate to PostgreSQL - 8 weeks, high value, high risk ✅ Recommended
 3. Hybrid approach - 4 weeks, medium complexity
@@ -367,24 +395,28 @@ rich_text: [{
 ### Discussion Topics Prepared
 
 **Technical** (4 questions):
+
 - Downtime achievability
 - Rollback planning
 - Data migration approach
 - Schema design
 
 **Business** (4 questions):
+
 - Customer impact
 - Scheduling
 - Roadmap impact
 - Cost analysis
 
 **Risk** (4 questions):
+
 - Risk identification
 - Testing strategy
 - Rollback procedure
 - Expertise availability
 
 **Resources** (4 questions):
+
 - Team allocation
 - External help needs
 - Project trade-offs
@@ -405,27 +437,30 @@ rich_text: [{
 ## Key Features Demonstrated
 
 ### Context Gathering
+
 - **Targeted search**: Engineering teamspace, recent documents
 - **Multiple perspectives**: Performance data, proposals, analysis, historical lessons
 - **Comprehensive synthesis**: Combined technical, business, and historical context
 
 ### Options Analysis
+
 - **Structured comparison**: Pros/cons for each option
 - **Cost-benefit**: Effort and infrastructure costs included
 - **Risk assessment**: Probability and impact noted
 - **Recommendation**: Clear engineering preference stated
 
 ### Decision Support
+
 - **Discussion topics**: 16 questions organized by theme
 - **Decision framework**: Evaluation criteria defined
 - **Decision makers**: Roles and responsibilities clear
 - **Outcome capture**: Sections ready for decision and actions
 
 ### Meeting Structure
+
 - **Pre-read**: Comprehensive background (can be read in 10 minutes)
 - **Options**: Clear comparison for quick decision
 - **Discussion**: Structured topics prevent rambling
 - **Capture**: Templates for decision and actions
 
 Perfect for: Architecture decisions, technical trade-offs, strategic choices
-

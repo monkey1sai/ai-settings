@@ -20,6 +20,7 @@ filters: {
 ```
 
 **Results Found:**
+
 - "Competitor Analysis - Stripe" (Product)
 - "Market Research Q3 2024" (Strategy)
 - "Pricing Strategy Discussion" (Product)
@@ -34,21 +35,25 @@ Notion:notion-fetch for each page
 **Extracted Information:**
 
 **Stripe**:
+
 - Pay-as-you-go: 2.9% + $0.30 per transaction
 - No monthly fees
 - Volume discounts available
 
 **Square**:
+
 - Pay-as-you-go: 2.6% + $0.10 per transaction
 - Monthly plan: $29/month with lower rates
 - Hardware costs separate
 
 **PayPal**:
+
 - Standard: 3.49% + $0.49 per transaction
 - Advanced: $30/month + 2.59% + $0.49
 - Multi-currency fees
 
 **Adyen**:
+
 - Interchange++ pricing model
 - Custom enterprise pricing
 - Setup and monthly fees apply
@@ -80,33 +85,36 @@ We analyzed four major payment processor competitors: Stripe, Square, PayPal, an
 
 ## Comparison Matrix
 
-| Feature | Stripe | Square | PayPal | Adyen |
-|---------|--------|--------|--------|-------|
-| **Base Rate** | 2.9% + $0.30 | 2.6% + $0.10 | 3.49% + $0.49 | Interchange++ |
-| **Monthly Fee** | $0 | $0-29 | $0-30 | Custom |
-| **Volume Discounts** | Yes, >$80K | Yes, >$250K | Yes, >$100K | Yes, custom |
-| **Setup Fee** | $0 | $0 | $0 | $1,000-5,000 |
-| **Multi-currency** | 1% extra | 3% extra | 3-4% extra | Included |
-| **Chargeback Fee** | $15 | $15-25 | $20 | Custom |
-| **Target Market** | Startups-Enterprise | Small-Medium | Small-Medium | Enterprise |
+| Feature              | Stripe              | Square       | PayPal        | Adyen         |
+| -------------------- | ------------------- | ------------ | ------------- | ------------- |
+| **Base Rate**        | 2.9% + $0.30        | 2.6% + $0.10 | 3.49% + $0.49 | Interchange++ |
+| **Monthly Fee**      | $0                  | $0-29        | $0-30         | Custom        |
+| **Volume Discounts** | Yes, >$80K          | Yes, >$250K  | Yes, >$100K   | Yes, custom   |
+| **Setup Fee**        | $0                  | $0           | $0            | $1,000-5,000  |
+| **Multi-currency**   | 1% extra            | 3% extra     | 3-4% extra    | Included      |
+| **Chargeback Fee**   | $15                 | $15-25       | $20           | Custom        |
+| **Target Market**    | Startups-Enterprise | Small-Medium | Small-Medium  | Enterprise    |
 
 ## Detailed Analysis
 
 ### Stripe
 
 **Pricing Structure**:
+
 - **Standard**: 2.9% + $0.30 per successful card charge
 - **Volume discounts**: Available for businesses processing >$80,000/month
 - **International cards**: +1% fee
 - **Currency conversion**: 1% above market rate
 
 **Strengths**:
+
 - Simple, transparent pricing
 - No setup fees or monthly minimums
 - Excellent developer experience
 - Quick onboarding
 
 **Weaknesses**:
+
 - Higher per-transaction fee for high volume
 - Volume discounts less aggressive than Adyen
 
@@ -117,17 +125,20 @@ We analyzed four major payment processor competitors: Stripe, Square, PayPal, an
 ### Square
 
 **Pricing Structure**:
+
 - **Pay-as-you-go**: 2.6% + $0.10 per tap, dip, or swipe
 - **Keyed-in**: 3.5% + $0.15
 - **Plus plan**: $29/month for lower rates (2.5% + $0.10)
 - **Premium plan**: Custom pricing
 
 **Strengths**:
+
 - Lowest per-transaction fee for in-person
 - All-in-one hardware + software
 - No long-term contracts
 
 **Weaknesses**:
+
 - Higher rates for online/keyed transactions
 - Hardware costs ($49-$299)
 - Less suitable for online-only businesses
@@ -139,16 +150,19 @@ We analyzed four major payment processor competitors: Stripe, Square, PayPal, an
 ### PayPal
 
 **Pricing Structure**:
+
 - **Standard**: 3.49% + $0.49 per transaction
 - **Advanced**: $30/month + 2.59% + $0.49
 - **Payments Pro**: Additional $30/month for direct credit card processing
 
 **Strengths**:
+
 - Huge customer base (PayPal checkout)
 - Buyer protection increases trust
 - International reach (200+ countries)
 
 **Weaknesses**:
+
 - Highest per-transaction fees
 - Complex fee structure
 - Account holds and reserves common
@@ -160,18 +174,21 @@ We analyzed four major payment processor competitors: Stripe, Square, PayPal, an
 ### Adyen
 
 **Pricing Structure**:
+
 - **Interchange++**: Actual interchange + scheme fees + fixed markup
 - **Setup fee**: $1,000-5,000 (negotiable)
 - **Monthly minimum**: Typically $10,000+ processing volume
 - **Per-transaction**: Interchange + 0.6% + $0.12 (example)
 
 **Strengths**:
+
 - Most transparent cost structure at scale
 - Lowest effective rate for high volume
 - True multi-currency (100+ currencies)
 - Direct connections to schemes
 
 **Weaknesses**:
+
 - Complex pricing requires analysis
 - High minimums ($10K+/month)
 - Longer integration time
@@ -184,34 +201,37 @@ We analyzed four major payment processor competitors: Stripe, Square, PayPal, an
 ## Pricing Trends & Insights
 
 ### Volume-Based Discounting
+
 All competitors offer discounts at scale:
+
 - **Entry point**: $80K-$250K/month processing
 - **Typical discount**: 10-30 basis points reduction
 - **Negotiation leverage**: Begins at $500K/month+
 
 ### Hidden Costs to Consider
 
-| Cost Type | Stripe | Square | PayPal | Adyen |
-|-----------|--------|--------|--------|-------|
-| Chargeback | $15 | $15-25 | $20 | $15-25 |
-| Account verification | $0 | $0 | $0 | Varies |
-| PCI compliance | $0 | $0 | $0 | $0 |
-| Currency conversion | 1% | 3% | 3-4% | 0% |
-| Refund fees | Returned | Returned | Not returned | Varies |
+| Cost Type            | Stripe   | Square   | PayPal       | Adyen  |
+| -------------------- | -------- | -------- | ------------ | ------ |
+| Chargeback           | $15      | $15-25   | $20          | $15-25 |
+| Account verification | $0       | $0       | $0           | Varies |
+| PCI compliance       | $0       | $0       | $0           | $0     |
+| Currency conversion  | 1%       | 3%       | 3-4%         | 0%     |
+| Refund fees          | Returned | Returned | Not returned | Varies |
 
 ### Market Positioning
-
 ```
+
 High Volume / Enterprise
-    ↑
-    |                    Adyen
-    |                      
-    |         Stripe             
-    |    
-    |  Square    PayPal
-    |
-    └──────────────────→
-      Small / Simple        Complex / International
+↑
+| Adyen
+|
+| Stripe
+|
+| Square PayPal
+|
+└──────────────────→
+Small / Simple Complex / International
+
 ```
 
 ## Strategic Implications
@@ -280,4 +300,3 @@ High Volume / Enterprise
 - **Comparison template** (matrix + detailed analysis)
 - **Strategic layer** (implications and recommendations)
 - **Action-oriented** (next steps included)
-

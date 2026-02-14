@@ -6,6 +6,7 @@ Use this template for creative ideation and brainstorming sessions.
 # [Topic] Brainstorming - [Date]
 
 ## Meeting Details
+
 **Date**: [Date]
 **Facilitator**: [Name]
 **Note-taker**: [Name]
@@ -22,6 +23,7 @@ Use this template for creative ideation and brainstorming sessions.
 [Context from research - 2-3 paragraphs]
 
 **Related Pages**:
+
 - <mention-page url="...">Context Page 1</mention-page>
 - <mention-page url="...">Context Page 2</mention-page>
 
@@ -64,9 +66,9 @@ Use this template for creative ideation and brainstorming sessions.
 
 ### Top Ideas
 
-| Idea | Feasibility | Impact | Effort | Score |
-|------|-------------|---------|--------|-------|
-| [Idea] | [H/M/L] | [H/M/L] | [H/M/L] | [#] |
+| Idea   | Feasibility | Impact  | Effort  | Score |
+| ------ | ----------- | ------- | ------- | ----- |
+| [Idea] | [H/M/L]     | [H/M/L] | [H/M/L] | [#]   |
 
 ## Next Steps
 
@@ -78,4 +80,3 @@ Use this template for creative ideation and brainstorming sessions.
 
 **Next meeting**: [Date to reconvene]
 ```
-

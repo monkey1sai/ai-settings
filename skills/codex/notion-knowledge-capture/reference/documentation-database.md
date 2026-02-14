@@ -4,17 +4,17 @@
 
 ## Schema
 
-| Property | Type | Options | Purpose |
-|----------|------|---------|---------|
-| **Title** | title | - | Document name |
-| **Type** | select | How-To, Concept, Reference, FAQ, Decision, Post-Mortem | Categorize content type |
-| **Category** | select | Engineering, Product, Design, Operations, General | Organize by department/topic |
-| **Tags** | multi_select | - | Additional categorization (languages, tools, topics) |
-| **Status** | select | Draft, In Review, Final, Deprecated | Track document lifecycle |
-| **Owner** | people | - | Document maintainer |
-| **Created** | created_time | - | Auto-populated creation date |
-| **Last Updated** | last_edited_time | - | Auto-populated last edit |
-| **Last Reviewed** | date | - | Manual review tracking |
+| Property          | Type             | Options                                                | Purpose                                              |
+| ----------------- | ---------------- | ------------------------------------------------------ | ---------------------------------------------------- |
+| **Title**         | title            | -                                                      | Document name                                        |
+| **Type**          | select           | How-To, Concept, Reference, FAQ, Decision, Post-Mortem | Categorize content type                              |
+| **Category**      | select           | Engineering, Product, Design, Operations, General      | Organize by department/topic                         |
+| **Tags**          | multi_select     | -                                                      | Additional categorization (languages, tools, topics) |
+| **Status**        | select           | Draft, In Review, Final, Deprecated                    | Track document lifecycle                             |
+| **Owner**         | people           | -                                                      | Document maintainer                                  |
+| **Created**       | created_time     | -                                                      | Auto-populated creation date                         |
+| **Last Updated**  | last_edited_time | -                                                      | Auto-populated last edit                             |
+| **Last Reviewed** | date             | -                                                      | Manual review tracking                               |
 
 ## Usage
 
@@ -90,4 +90,3 @@ Use `Notion:notion-create-database`:
 4. **Review properties** quarterly - remove unused ones
 5. **Document the schema** in database description
 6. **Train team** on property usage and conventions
-

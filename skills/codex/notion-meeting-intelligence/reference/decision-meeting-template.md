@@ -6,6 +6,7 @@ Use this template when you need to make an important decision with your team.
 # [Decision Topic] - [Date]
 
 ## Meeting Details
+
 **Date & Time**: [Date and time]
 **Duration**: [Length]
 **Attendees**: [List of attendees with roles]
@@ -15,13 +16,16 @@ Use this template when you need to make an important decision with your team.
 ## Pre-Read Summary
 
 ### Background
+
 [2-3 sentences providing context from related project pages]
 
 **Related Pages**:
+
 - <mention-page url="...">Project Overview</mention-page>
 - <mention-page url="...">Previous Discussion</mention-page>
 
 ### Current Situation
+
 [What brings us to this decision point]
 
 ## Decision Required
@@ -35,13 +39,16 @@ Use this template when you need to make an important decision with your team.
 ## Options Analysis
 
 ### Option A: [Name]
+
 **Description**: [What this option entails]
 
 **Pros**:
+
 - [Advantage]
 - [Advantage]
 
 **Cons**:
+
 - [Disadvantage]
 - [Disadvantage]
 
@@ -49,9 +56,11 @@ Use this template when you need to make an important decision with your team.
 **Risk**: [Risk assessment]
 
 ### Option B: [Name]
+
 [Repeat structure]
 
 ### Option C: Do Nothing
+
 **Description**: What happens if we don't decide
 **Implications**: [Consequences]
 
@@ -68,6 +77,7 @@ Use this template when you need to make an important decision with your team.
 ## Decision Framework
 
 **Criteria for evaluation**:
+
 - [Criterion 1]
 - [Criterion 2]
 - [Criterion 3]
@@ -91,4 +101,3 @@ Use this template when you need to make an important decision with your team.
 **Next review**: [Date]
 **Success metrics**: [How we'll know this worked]
 ```
-

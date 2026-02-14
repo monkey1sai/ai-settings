@@ -1,23 +1,26 @@
 # Spec to Implementation Skill Evaluations
 
-Evaluation scenarios for testing the Spec to Implementation skill across different Codex models.
+Evaluation scenarios for testing the Spec to Implementation skill across different Claude models.
 
 ## Purpose
 
 These evaluations ensure the Spec to Implementation skill:
+
 - Finds and parses specification pages accurately
 - Breaks down specs into actionable implementation plans
-- Creates tasks that Codex can implement with clear acceptance criteria
+- Creates tasks that Claude can implement with clear acceptance criteria
 - Tracks progress and updates implementation status
 - Works consistently across Haiku, Sonnet, and Opus
 
 ## Evaluation Files
 
 ### basic-spec-implementation.json
+
 Tests basic workflow of turning a spec into an implementation plan.
 
 **Scenario**: Implement user authentication feature from spec  
 **Key Behaviors**:
+
 - Searches for and finds the authentication spec page
 - Fetches spec and extracts requirements
 - Parses requirements into phases (setup, core features, polish)
@@ -26,10 +29,12 @@ Tests basic workflow of turning a spec into an implementation plan.
 - Includes timeline and dependencies
 
 ### spec-to-tasks.json
+
 Tests creating concrete tasks from a specification in a task database.
 
 **Scenario**: Create tasks from API redesign spec  
 **Key Behaviors**:
+
 - Finds spec page in Notion
 - Extracts specific requirements and acceptance criteria
 - Searches for or creates task database
@@ -55,6 +60,7 @@ Tests creating concrete tasks from a specification in a task database.
 Spec to Implementation evaluations should verify:
 
 ### Spec Discovery & Parsing
+
 - Searches Notion for specification pages
 - Fetches complete spec content
 - Extracts all requirements accurately
@@ -63,6 +69,7 @@ Spec to Implementation evaluations should verify:
 - Notes any ambiguities or missing details
 
 ### Implementation Planning
+
 - Creates implementation plan page
 - Breaks work into logical phases:
   - Phase 1: Foundation/Setup
@@ -73,6 +80,7 @@ Spec to Implementation evaluations should verify:
 - Links back to original spec
 
 ### Task Creation
+
 - Finds or identifies task database
 - Fetches database schema for property names
 - Creates tasks with correct properties
@@ -86,6 +94,7 @@ Spec to Implementation evaluations should verify:
 - Dependencies between tasks are noted
 
 ### Progress Tracking
+
 - Implementation plan includes progress markers
 - Tasks can be updated as work progresses
 - Status updates link to completed work
@@ -105,6 +114,7 @@ When adding Spec to Implementation evaluations:
 ## Example Success Criteria
 
 **Good** (specific, testable):
+
 - "Searches Notion for spec page using feature name"
 - "Creates implementation plan with 3 phases: Setup → Core → Polish"
 - "Creates 5-8 tasks in task database with properties: Task (title), Status, Priority, Sprint"
@@ -113,8 +123,8 @@ When adding Spec to Implementation evaluations:
 - "Task titles are specific and actionable (e.g., 'Create login API endpoint' not 'Authentication')"
 
 **Bad** (vague, untestable):
+
 - "Creates good implementation plan"
 - "Tasks are well-structured"
 - "Breaks down spec appropriately"
 - "Links to spec"
-

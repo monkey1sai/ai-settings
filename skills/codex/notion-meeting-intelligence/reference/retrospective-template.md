@@ -6,6 +6,7 @@ Use this template for sprint retrospectives and team retrospectives.
 # Sprint [#] Retrospective - [Date]
 
 ## Meeting Details
+
 **Date**: [Date]
 **Team**: [Team]
 **Sprint**: [Sprint dates]
@@ -23,6 +24,7 @@ Use this template for sprint retrospectives and team retrospectives.
 ## Pre-Read
 
 **Sprint Metrics**:
+
 - Tasks completed: [#]
 - Tasks carried over: [#]
 - Bugs found: [#]
@@ -55,4 +57,3 @@ Use this template for sprint retrospectives and team retrospectives.
 
 **Review actions in**: [Next retro date]
 ```
-

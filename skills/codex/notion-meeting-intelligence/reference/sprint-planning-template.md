@@ -6,6 +6,7 @@ Use this template for agile sprint planning meetings.
 # Sprint [#] Planning - [Date]
 
 ## Meeting Details
+
 **Date**: [Date]
 **Team**: [Team name]
 **Sprint Duration**: [Dates]
@@ -17,9 +18,9 @@ Use this template for agile sprint planning meetings.
 ## Capacity
 
 | Team Member | Availability | Capacity (points) |
-|-------------|--------------|-------------------|
-| [Name] | [%] | [#] |
-| **Total** | | [#] |
+| ----------- | ------------ | ----------------- |
+| [Name]      | [%]          | [#]               |
+| **Total**   |              | [#]               |
 
 ## Backlog Review
 
@@ -46,9 +47,11 @@ Use this template for agile sprint planning meetings.
 ## Dependencies & Risks
 
 **Dependencies**:
+
 - [Dependency]
 
 **Risks**:
+
 - [Risk]
 
 ## Definition of Done
@@ -65,4 +68,3 @@ Use this template for agile sprint planning meetings.
 - Daily standups at [Time]
 - Sprint review on [Date]
 ```
-

@@ -1,7 +1,0 @@
-{
-  "name": "ai-dev-guardrails",
-  "version": "0.1.0",
-  "description": "Shared AI-assisted engineering guardrails: follow repo rules, keep docs/current_task.md updated, and journal meaningful code changes to docs/ai_journal/ for cross-session continuity.",
-  "contextFileName": "GEMINI.md"
-}
-

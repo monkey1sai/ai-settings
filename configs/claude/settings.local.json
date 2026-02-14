@@ -1,14 +1,23 @@
 {
   "permissions": {
     "allow": [
-      "Skill(SkillForge)",
-      "Bash(dir /s /b \"C:\\\\Users\\\\IOT\\\\.claude\\\\skills\\\\self-evolution\")",
-      "Bash(python knowledge_stats.py:*)",
-      "Bash(fi)",
-      "Bash(done)",
-      "Bash(dir:*)",
-      "WebSearch"
+      "Bash(git -C \"C:/Users/monke/jacks_happy_bots\" log --oneline)",
+      "Bash(git -C:*)",
+      "Bash(python -c \"import json; [json.load\\(open\\(f\\)\\) for f in [''C:/Users/monke/jacks_happy_bots/.claude/settings.local.json'', ''C:/Users/monke/jacks_happy_bots/.claude/hooks.json'', ''C:/Users/monke/jacks_happy_bots/.claude/agents.json'']]; print\\(''All JSON valid''\\)\")",
+      "Bash(python -c \"import json; [json.load\\(open\\(f, encoding=''utf-8''\\)\\) for f in [''C:/Users/monke/jacks_happy_bots/.claude/settings.local.json'', ''C:/Users/monke/jacks_happy_bots/.claude/hooks.json'', ''C:/Users/monke/jacks_happy_bots/.claude/agents.json'']]; print\\(''All JSON valid''\\)\")",
+      "Bash(claude:*)",
+      "Bash(CLAUDECODE= CLAUDE_CODE_SESSION= claude -p \"讀取 .claude/ 目錄下所有 JSON 檔案，確認 settings.local.json、hooks.json、agents.json 都存在且格式正確。也讀取 CLAUDE.md 前 20 行。簡要回報每個檔案的狀態和重點內容。\" --model haiku --output-format text --max-budget-usd 0.15)",
+      "Bash(CLAUDECODE= CLAUDE_CODE_SESSION= claude -p \"Read these 3 files and confirm they are valid JSON: .claude/settings.local.json, .claude/hooks.json, .claude/agents.json. Also read the first 5 lines of CLAUDE.md. Report: \\(1\\) does each file exist and parse as valid JSON? \\(2\\) key count in each. \\(3\\) first line of CLAUDE.md. Be very brief.\" --model haiku --output-format text --max-budget-usd 0.50)",
+      "Bash(CLAUDECODE= CLAUDE_CODE_SESSION= claude -p \"Read these files and confirm valid JSON: .claude/settings.local.json, .claude/hooks.json, .claude/agents.json. Also read first 3 lines of CLAUDE.md. Report brief summary of each.\" --model haiku --output-format json --max-budget-usd 0.50 --allowedTools \"Read Glob\")",
+      "Bash(CLAUDECODE= CLAUDE_CODE_SESSION= claude -p \"你是哪個 agent？你的職責是什麼？簡要回答。\" --agent saga-security --model haiku --output-format text --max-budget-usd 0.30 --allowedTools \"Read Glob Grep\")",
+      "Bash(CLAUDECODE= CLAUDE_CODE_SESSION= claude -p \"快速安全掃描：檢查專案中是否有硬編碼的 API key、token、password。掃描 scripts/ 和 sdk/ 目錄。只回報有問題的檔案，沒問題就說全部通過。\" --agent saga-security --model haiku --output-format text --max-budget-usd 0.50 --allowedTools \"Read Glob Grep\")",
+      "Bash(git check-ignore:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(echo:*)",
+      "Bash(git rm:*)",
+      "Bash(find:*)"
     ]
-  },
-  "outputStyle": "Explanatory"
+  }
 }

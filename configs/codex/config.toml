@@ -1,51 +1,62 @@
-model = "gpt-5.2"
-model_reasoning_effort = "high"
-web_search = "live"
-suppress_unstable_features_warning = true
-personality = "pragmatic"
+model = "gpt-5.3-codex"
+model_reasoning_effort = "xhigh"
+
+[mcp_servers]
+
+[mcp_servers.MCP_DOCKER]
+command = "docker.exe"
+args = ["mcp", "gateway", "run"]
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+bearer_token_env_var = "CONTEXT7_API_KEY"
+
+[mcp_servers.github]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-github"]
+
+[mcp_servers.sequentialThinking]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+
+[mcp_servers.filesystem]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-filesystem", 'C:\Users\monke']
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+
+[mcp_servers.lsp-ts]
+command = "npx"
+args = ["-y", "github:erans/lsp-mcp", "--config", 'C:\Users\monke\.codex\mcp\lsp-servers.yaml', "--lsp", "typescript", "--workspace", 'C:\Users\monke']
+
+[mcp_servers.lsp-py]
+command = "npx"
+args = ["-y", "github:erans/lsp-mcp", "--config", 'C:\Users\monke\.codex\mcp\lsp-servers.yaml', "--lsp", "python", "--workspace", 'C:\Users\monke']
+
+[mcp_servers.lsp-json]
+command = "npx"
+args = ["-y", "github:erans/lsp-mcp", "--config", 'C:\Users\monke\.codex\mcp\lsp-servers.yaml', "--lsp", "json", "--workspace", 'C:\Users\monke']
+
+[mcp_servers.lsp-bash]
+command = "npx"
+args = ["-y", "github:erans/lsp-mcp", "--config", 'C:\Users\monke\.codex\mcp\lsp-servers.yaml', "--lsp", "bash", "--workspace", 'C:\Users\monke']
+
+[mcp_servers.lsp-yaml]
+command = "npx"
+args = ["-y", "github:erans/lsp-mcp", "--config", 'C:\Users\monke\.codex\mcp\lsp-servers.yaml', "--lsp", "yaml", "--workspace", 'C:\Users\monke']
 
 [notice]
 hide_full_access_warning = true
 
-[notice.model_migrations]
-"gpt-5.1-codex-mini" = "gpt-5.2-codex"
-"gpt-5.2" = "gpt-5.2-codex"
-"gpt-5.1-codex-max" = "gpt-5.2-codex"
-
-[mcp_servers.notion]
-url = "https://mcp.notion.com/mcp"
-startup_timeout_sec = 30
-
-[features]
-experimental_windows_sandbox = true
-elevated_windows_sandbox = true
-unified_exec = true
-shell_snapshot = true
-steer = true
-powershell_utf8 = true
-undo = true
-child_agents_md = true
+[projects]
+[projects.'\\?\C:\Users\monke\jacks_happy_bots']
+trust_level = 'trusted'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[windows]
+sandbox = 'elevated'

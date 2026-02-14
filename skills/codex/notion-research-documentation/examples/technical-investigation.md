@@ -16,6 +16,7 @@ teamspace_id: "engineering-teamspace-id"
 ```
 
 **Results Found:**
+
 - "System Architecture Overview" (Engineering)
 - "Redis Implementation Guide" (Backend Docs)
 - "Performance Optimization - Q3 2024" (Engineering)
@@ -47,6 +48,7 @@ Extracted: Why Redis was chosen over alternatives, trade-offs considered.
 ### Step 3: Synthesize Findings
 
 **Key findings identified:**
+
 - Two-tier caching: Redis (API responses) + Memcached (sessions)
 - TTL strategy: 5 minutes for dynamic data, 1 hour for static
 - Invalidation: Event-driven for critical updates
@@ -80,9 +82,11 @@ Our caching infrastructure uses a two-tier approach with Redis for API response 
 ## Architecture Overview
 
 ### Layer 1: API Response Caching (Redis)
+
 **Technology**: Redis 7.0 cluster (3 nodes)
 **Purpose**: Cache GET endpoint responses
 **TTL Strategy**:
+
 - Dynamic content: 5 minutes
 - Static content: 1 hour
 - User-specific: 15 minutes
@@ -90,6 +94,7 @@ Our caching infrastructure uses a two-tier approach with Redis for API response 
 **Source**: <mention-page url="...">System Architecture Overview</mention-page>
 
 ### Layer 2: Session Storage (Memcached)
+
 **Technology**: Memcached 1.6
 **Purpose**: User session data, temporary state
 **TTL**: 24 hours (session lifetime)
@@ -98,9 +103,11 @@ Our caching infrastructure uses a two-tier approach with Redis for API response 
 
 ### Cache Key Format
 ```
+
 api:v1:{endpoint}:{params_hash}
 session:{user_id}:{session_id}
-```
+
+````
 
 ### Invalidation Strategy
 - **Event-driven**: Critical data changes trigger immediate invalidation
@@ -198,9 +205,10 @@ session:{user_id}:{session_id}
 maxmemory: 8gb
 maxmemory-policy: allkeys-lru
 tcp-keepalive: 60
-```
+````
 
 ### Common Cache Operations
+
 ```python
 # Set with TTL
 cache.set(key, value, ttl=300)
@@ -211,6 +219,7 @@ value = cache.get(key) or fetch_from_db(key)
 # Invalidate pattern
 cache.delete_pattern("api:v1:users:*")
 ```
+
 ```
 
 ## Key Success Factors
@@ -231,3 +240,4 @@ This example shows the complete research workflow:
 - **Proper placement** (under engineering docs)
 - **Comprehensive citations** (links to all sources)
 
+```

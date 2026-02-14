@@ -1,26 +1,26 @@
-<#
+﻿<#
 .SYNOPSIS
     openAI CLI Restore Script - 在新電腦上還原 AI CLI 設定
 .DESCRIPTION
-    ⚠️ 此腳本設計用於「新電腦」或「全新安裝」的情況！
-    
-    安全機制：
-    - 如果偵測到現有設定，會要求明確確認
-    - 預設會備份現有設定到 *.backup 目錄
-    - 使用 -DryRun 可預覽不執行
-    
+    預設使用「鏡像還原」模式：
+    - 會先重建目標目錄（.gemini/.claude/.codex）
+    - 不保留原電腦的舊設定資料於使用路徑
+    - 使用 -BackupExisting 可先備份舊目錄再還原
+
 .PARAMETER DryRun
     預覽模式，不實際執行任何操作
 .PARAMETER Force
     強制執行，跳過確認（不建議使用）
+.PARAMETER BackupExisting
+    還原前先將現有目錄改名為 *.backup.<timestamp>
 .NOTES
-    ⚠️ 警告：此腳本會覆蓋目標設定！
-    請確保在「新電腦」上使用，或已備份重要設定。
+    ⚠️ 警告：此腳本會重建目標設定目錄。
 #>
 
 param(
     [switch]$DryRun,
-    [switch]$Force
+    [switch]$Force,
+    [switch]$BackupExisting
 )
 
 $ErrorActionPreference = "Stop"
@@ -37,12 +37,17 @@ $Timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
 
 Write-Host "╔══════════════════════════════════════════════╗" -ForegroundColor Red
 Write-Host "║     openAI CLI Restore Script                ║" -ForegroundColor Red
-Write-Host "║     ⚠️ 此腳本會修改本機設定！                ║" -ForegroundColor Red
+Write-Host "║     ⚠️  預設會重建目標設定目錄               ║" -ForegroundColor Red
 Write-Host "╚══════════════════════════════════════════════╝" -ForegroundColor Red
 Write-Host ""
 
 if ($DryRun) {
     Write-Host "[DRY RUN] 預覽模式 - 不會實際修改任何檔案" -ForegroundColor Yellow
+    Write-Host ""
+}
+
+if ($BackupExisting) {
+    Write-Host "[BACKUP MODE] 現有目錄將改名為 *.backup.$Timestamp" -ForegroundColor Yellow
     Write-Host ""
 }
 
@@ -67,10 +72,15 @@ if ($existingConfigs.Count -gt 0 -and -not $Force -and -not $DryRun) {
     }
     Write-Host ""
     Write-Host "此腳本會：" -ForegroundColor White
-    Write-Host "  1. 將現有設定備份到 *.backup.$Timestamp" -ForegroundColor Gray
-    Write-Host "  2. 用專案中的設定覆蓋現有設定" -ForegroundColor Gray
+    if ($BackupExisting) {
+        Write-Host "  1. 將現有目錄改名為 *.backup.$Timestamp" -ForegroundColor Gray
+        Write-Host "  2. 以 repo 設定重建目標目錄" -ForegroundColor Gray
+    } else {
+        Write-Host "  1. 移除現有目錄內容（不保留舊資料於使用路徑）" -ForegroundColor Gray
+        Write-Host "  2. 以 repo 設定重建目標目錄" -ForegroundColor Gray
+    }
     Write-Host ""
-    
+
     $confirm = Read-Host "確定要繼續嗎？輸入 'YES' 確認"
     if ($confirm -ne "YES") {
         Write-Host ""
@@ -85,18 +95,36 @@ if ($existingConfigs.Count -gt 0 -and -not $Force -and -not $DryRun) {
 # 還原函數
 # ============================================================
 
-function Backup-Existing {
+function Prepare-TargetDirectory {
     param(
-        [string]$Path
+        [string]$Path,
+        [string]$Label
     )
-    
+
     if (Test-Path $Path) {
-        $backupPath = "$Path.backup.$Timestamp"
-        if ($DryRun) {
-            Write-Host "  [BACKUP] $Path -> $backupPath" -ForegroundColor Gray
+        if ($BackupExisting) {
+            $backupPath = "$Path.backup.$Timestamp"
+            if ($DryRun) {
+                Write-Host "  [BACKUP] ${Label}: $Path -> $backupPath" -ForegroundColor Gray
+            } else {
+                Rename-Item -Path $Path -NewName (Split-Path -Leaf $backupPath)
+                Write-Host "  ⚡ $Label backed up to $backupPath" -ForegroundColor Yellow
+            }
         } else {
-            Rename-Item -Path $Path -NewName (Split-Path -Leaf $backupPath)
-            Write-Host "  ⚡ Backed up existing to $backupPath" -ForegroundColor Yellow
+            if ($DryRun) {
+                Write-Host "  [RESET] ${Label}: remove $Path" -ForegroundColor Gray
+            } else {
+                Remove-Item -Path $Path -Recurse -Force
+                Write-Host "  ✗ $Label old data removed" -ForegroundColor DarkYellow
+            }
+        }
+    }
+
+    if (-not (Test-Path $Path)) {
+        if ($DryRun) {
+            Write-Host "  [MKDIR] $Path" -ForegroundColor Gray
+        } else {
+            New-Item -ItemType Directory -Path $Path -Force | Out-Null
         }
     }
 }
@@ -106,7 +134,7 @@ function Restore-File {
         [string]$Source,
         [string]$Destination
     )
-    
+
     if (Test-Path $Source) {
         $destDir = Split-Path -Parent $Destination
         if (-not (Test-Path $destDir)) {
@@ -116,7 +144,7 @@ function Restore-File {
                 New-Item -ItemType Directory -Path $destDir -Force | Out-Null
             }
         }
-        
+
         if ($DryRun) {
             Write-Host "  [RESTORE] $Source -> $Destination" -ForegroundColor Gray
         } else {
@@ -132,38 +160,32 @@ function Restore-Directory {
     param(
         [string]$Source,
         [string]$Destination,
-        [string[]]$PreserveSubmodules = @()  # 保留這些目錄不覆蓋 (submodules)
+        [string[]]$Exclude = @()
     )
-    
-    if (Test-Path $Source) {
-        if (-not (Test-Path $Destination)) {
-            if ($DryRun) {
-                Write-Host "  [MKDIR] $Destination" -ForegroundColor Gray
-            } else {
-                New-Item -ItemType Directory -Path $Destination -Force | Out-Null
-            }
-        }
-        
-        # 排除 submodule 目錄
-        $items = Get-ChildItem -Path $Source -Directory | Where-Object { $_.Name -notin $PreserveSubmodules }
-        $count = ($items | Measure-Object).Count
-        
-        if ($DryRun) {
-            Write-Host "  [RESTORE DIR] $count items to $Destination" -ForegroundColor Gray
-            if ($PreserveSubmodules.Count -gt 0) {
-                Write-Host "  [SKIP] Submodules: $($PreserveSubmodules -join ', ')" -ForegroundColor DarkYellow
-            }
-        } else {
-            foreach ($item in $items) {
-                Copy-Item -Path $item.FullName -Destination $Destination -Recurse -Force
-            }
-            Write-Host "  ✓ $count directories restored" -ForegroundColor Green
-            if ($PreserveSubmodules.Count -gt 0) {
-                Write-Host "  ⊙ Preserved submodules: $($PreserveSubmodules -join ', ')" -ForegroundColor DarkCyan
-            }
-        }
-    } else {
+
+    if (-not (Test-Path $Source)) {
         Write-Host "  ⊘ Source directory not found: $Source" -ForegroundColor DarkGray
+        return
+    }
+
+    if (-not (Test-Path $Destination)) {
+        if ($DryRun) {
+            Write-Host "  [MKDIR] $Destination" -ForegroundColor Gray
+        } else {
+            New-Item -ItemType Directory -Path $Destination -Force | Out-Null
+        }
+    }
+
+    $items = Get-ChildItem -Path $Source -Force | Where-Object { $_.Name -notin $Exclude }
+    $count = ($items | Measure-Object).Count
+
+    if ($DryRun) {
+        Write-Host "  [RESTORE DIR] $count items to $Destination" -ForegroundColor Gray
+    } else {
+        foreach ($item in $items) {
+            Copy-Item -Path $item.FullName -Destination $Destination -Recurse -Force
+        }
+        Write-Host "  ✓ $count items restored" -ForegroundColor Green
     }
 }
 
@@ -176,18 +198,9 @@ Write-Host "📦 Gemini CLI" -ForegroundColor Blue
 $geminiDest = Join-Path $UserHome ".gemini"
 $geminiSource = [IO.Path]::Combine($ProjectRoot, 'configs', 'gemini')
 
-# 備份現有設定檔（不備份整個目錄，只備份會被覆蓋的檔案）
-$geminiSettingsPath = [IO.Path]::Combine($geminiDest, 'settings.json')
-$geminiMemoriesPath = [IO.Path]::Combine($geminiDest, 'GEMINI.md')
-if (Test-Path $geminiSettingsPath) {
-    Backup-Existing -Path $geminiSettingsPath
-}
-if (Test-Path $geminiMemoriesPath) {
-    Backup-Existing -Path $geminiMemoriesPath
-}
-
-Restore-File -Source ([IO.Path]::Combine($geminiSource, 'settings.json')) -Destination $geminiSettingsPath
-Restore-File -Source ([IO.Path]::Combine($geminiSource, 'GEMINI.md')) -Destination $geminiMemoriesPath
+Prepare-TargetDirectory -Path $geminiDest -Label "Gemini"
+Restore-File -Source ([IO.Path]::Combine($geminiSource, 'settings.json')) -Destination ([IO.Path]::Combine($geminiDest, 'settings.json'))
+Restore-File -Source ([IO.Path]::Combine($geminiSource, 'GEMINI.md')) -Destination ([IO.Path]::Combine($geminiDest, 'GEMINI.md'))
 
 Write-Host "  Skills:" -ForegroundColor DarkCyan
 $geminiSkillsSource = [IO.Path]::Combine($ProjectRoot, 'skills', 'gemini')
@@ -195,16 +208,9 @@ $geminiSkillsDest = [IO.Path]::Combine($geminiDest, 'skills')
 Restore-Directory -Source $geminiSkillsSource -Destination $geminiSkillsDest
 
 Write-Host "  Extensions:" -ForegroundColor DarkCyan
-# 排除 submodule 目錄，它們會由 git submodule update 處理
-$geminiSubmodules = @("datacommons", "huggingface-skills")
 $geminiExtensionsSource = [IO.Path]::Combine($ProjectRoot, 'extensions', 'gemini')
 $geminiExtensionsDest = [IO.Path]::Combine($geminiDest, 'extensions')
-Restore-Directory -Source $geminiExtensionsSource -Destination $geminiExtensionsDest -PreserveSubmodules $geminiSubmodules
-
-# extensions/extension-enablement.json 是檔案，不會被 Restore-Directory 複製（它只複製目錄）
-$geminiExtensionEnableSource = [IO.Path]::Combine($geminiExtensionsSource, 'extension-enablement.json')
-$geminiExtensionEnableDest = [IO.Path]::Combine($geminiExtensionsDest, 'extension-enablement.json')
-Restore-File -Source $geminiExtensionEnableSource -Destination $geminiExtensionEnableDest
+Restore-Directory -Source $geminiExtensionsSource -Destination $geminiExtensionsDest
 
 Write-Host ""
 
@@ -217,21 +223,11 @@ Write-Host "📦 Claude CLI" -ForegroundColor Blue
 $claudeDest = Join-Path $UserHome ".claude"
 $claudeSource = [IO.Path]::Combine($ProjectRoot, 'configs', 'claude')
 
-$claudeSettingsPath = [IO.Path]::Combine($claudeDest, 'settings.json')
-if (Test-Path $claudeSettingsPath) {
-    Backup-Existing -Path $claudeSettingsPath
-}
-
-Restore-File -Source ([IO.Path]::Combine($claudeSource, 'settings.json')) -Destination $claudeSettingsPath
+Prepare-TargetDirectory -Path $claudeDest -Label "Claude"
+Restore-File -Source ([IO.Path]::Combine($claudeSource, 'settings.json')) -Destination ([IO.Path]::Combine($claudeDest, 'settings.json'))
 Restore-File -Source ([IO.Path]::Combine($claudeSource, 'settings.local.json')) -Destination ([IO.Path]::Combine($claudeDest, 'settings.local.json'))
-
-# Claude plugins
-$pluginsDest = [IO.Path]::Combine($claudeDest, 'plugins')
-if (-not (Test-Path $pluginsDest) -and -not $DryRun) {
-    New-Item -ItemType Directory -Path $pluginsDest -Force | Out-Null
-}
-Restore-File -Source ([IO.Path]::Combine($claudeSource, 'installed_plugins.json')) -Destination ([IO.Path]::Combine($pluginsDest, 'installed_plugins.json'))
-Restore-File -Source ([IO.Path]::Combine($claudeSource, 'known_marketplaces.json')) -Destination ([IO.Path]::Combine($pluginsDest, 'known_marketplaces.json'))
+Restore-File -Source ([IO.Path]::Combine($claudeSource, 'installed_plugins.json')) -Destination ([IO.Path]::Combine($claudeDest, 'plugins', 'installed_plugins.json'))
+Restore-File -Source ([IO.Path]::Combine($claudeSource, 'known_marketplaces.json')) -Destination ([IO.Path]::Combine($claudeDest, 'plugins', 'known_marketplaces.json'))
 
 Write-Host ""
 
@@ -244,17 +240,9 @@ Write-Host "📦 Codex CLI" -ForegroundColor Blue
 $codexDest = Join-Path $UserHome ".codex"
 $codexSource = [IO.Path]::Combine($ProjectRoot, 'configs', 'codex')
 
-$codexConfigPath = [IO.Path]::Combine($codexDest, 'config.toml')
-$codexAgentsPath = [IO.Path]::Combine($codexDest, 'AGENTS.md')
-if (Test-Path $codexConfigPath) {
-    Backup-Existing -Path $codexConfigPath
-}
-if (Test-Path $codexAgentsPath) {
-    Backup-Existing -Path $codexAgentsPath
-}
-
-Restore-File -Source ([IO.Path]::Combine($codexSource, 'config.toml')) -Destination $codexConfigPath
-Restore-File -Source ([IO.Path]::Combine($codexSource, 'AGENTS.md')) -Destination $codexAgentsPath
+Prepare-TargetDirectory -Path $codexDest -Label "Codex"
+Restore-File -Source ([IO.Path]::Combine($codexSource, 'config.toml')) -Destination ([IO.Path]::Combine($codexDest, 'config.toml'))
+Restore-File -Source ([IO.Path]::Combine($codexSource, 'AGENTS.md')) -Destination ([IO.Path]::Combine($codexDest, 'AGENTS.md'))
 Restore-File -Source ([IO.Path]::Combine($codexSource, 'SYSTEM.md')) -Destination ([IO.Path]::Combine($codexDest, 'SYSTEM.md'))
 
 Write-Host "  Skills:" -ForegroundColor DarkCyan
@@ -265,10 +253,7 @@ Restore-Directory -Source $codexSkillsSource -Destination $codexSkillsDest
 Write-Host "  Rules:" -ForegroundColor DarkCyan
 $rulesSource = [IO.Path]::Combine($ProjectRoot, 'rules', 'codex')
 $rulesDest = [IO.Path]::Combine($codexDest, 'rules')
-if (-not (Test-Path $rulesDest) -and -not $DryRun) {
-    New-Item -ItemType Directory -Path $rulesDest -Force | Out-Null
-}
-Restore-File -Source ([IO.Path]::Combine($rulesSource, 'default.rules')) -Destination ([IO.Path]::Combine($rulesDest, 'default.rules'))
+Restore-Directory -Source $rulesSource -Destination $rulesDest
 
 Write-Host ""
 
@@ -281,6 +266,9 @@ if ($DryRun) {
     Write-Host "✅ 預覽完成！移除 -DryRun 參數以執行實際還原" -ForegroundColor Yellow
 } else {
     Write-Host "✅ 還原完成！" -ForegroundColor Green
+    if ($BackupExisting) {
+        Write-Host "  先前設定已備份為 *.backup.$Timestamp" -ForegroundColor Yellow
+    }
     Write-Host ""
     Write-Host "⚠️ 重要提醒：" -ForegroundColor Yellow
     Write-Host "  • 請重新登入各 CLI 工具" -ForegroundColor White

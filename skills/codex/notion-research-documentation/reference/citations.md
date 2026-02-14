@@ -63,14 +63,17 @@ Group by category for long lists:
 ## Sources
 
 ### Primary Sources
+
 - <mention-page url="...">Official Roadmap</mention-page>
 - <mention-page url="...">Strategy Document</mention-page>
 
 ### Supporting Research
+
 - <mention-page url="...">Market Trends</mention-page>
 - <mention-page url="...">Customer Feedback</mention-page>
 
 ### Background Context
+
 - <mention-page url="...">Historical Analysis</mention-page>
 ```
 
@@ -95,10 +98,10 @@ For block quotes:
 When presenting data, cite the source:
 
 ```markdown
-| Metric | Q3 | Q4 | Change |
-|--------|----|----|--------|
+| Metric  | Q3    | Q4    | Change |
+| ------- | ----- | ----- | ------ |
 | Revenue | $2.3M | $2.8M | +21.7% |
-| Users | 12.4K | 15.1K | +21.8% |
+| Users   | 12.4K | 15.1K | +21.8% |
 
 Source: <mention-page url="...">Financial Dashboard</mention-page>
 ```
@@ -122,18 +125,21 @@ When attributing information to specific people:
 ## Citation Frequency
 
 **Over-citing** (every sentence):
+
 ```markdown
-The revenue increased (<mention-page url="...">Report</mention-page>). 
-Costs decreased (<mention-page url="...">Report</mention-page>). 
+The revenue increased (<mention-page url="...">Report</mention-page>).
+Costs decreased (<mention-page url="...">Report</mention-page>).
 Margin improved (<mention-page url="...">Report</mention-page>).
 ```
 
 **Under-citing** (no attribution):
+
 ```markdown
 The revenue increased, costs decreased, and margin improved.
 ```
 
 **Right balance** (grouped citation):
+
 ```markdown
 The revenue increased, costs decreased, and margin improved (<mention-page url="...">Q4 Financial Report</mention-page>).
 ```
@@ -154,10 +160,12 @@ Link to related research documents:
 ## Related Research
 
 This research builds on previous findings:
+
 - <mention-page url="...">Market Analysis - Q2 2025</mention-page>
 - <mention-page url="...">Competitor Landscape Review</mention-page>
 
 For implementation details, see:
+
 - <mention-page url="...">Technical Implementation Guide</mention-page>
 ```
 
@@ -177,14 +185,15 @@ Before finalizing research:
 Choose one citation style and use throughout:
 
 **Inline style** (lightweight):
+
 ```markdown
 Revenue grew 23% (Financial Report). Customer count increased 18% (Metrics Dashboard).
 ```
 
 **Formal style** (full mentions):
+
 ```markdown
 Revenue grew 23% (<mention-page url="...">Q4 Financial Report</mention-page>). Customer count increased 18% (<mention-page url="...">Metrics Dashboard</mention-page>).
 ```
 
 **Recommend formal style** for most research documentation as it provides clickable navigation.
-

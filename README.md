@@ -10,10 +10,13 @@
 .\scripts\sync.ps1
 ```
 
+> 預設為**鏡像模式**：專案端會刪除本機不存在的舊檔案/目錄，確保 repo 只保留「現在這台機器」的設定。
+
 可選參數：
 ```powershell
 .\scripts\sync.ps1 -Message "新增 Gemini skill"  # 自訂 commit 訊息
 .\scripts\sync.ps1 -BackupOnly                    # 只複製到專案，不 push
+.\scripts\sync.ps1 -NoMirror                      # 關閉鏡像模式（不建議）
 .\scripts\sync.ps1 -DryRun                        # 預覽模式
 ```
 
@@ -23,6 +26,14 @@ git clone https://github.com/YOUR_USERNAME/openai-cli.git
 cd openai-cli
 git submodule update --init --recursive
 .\scripts\restore.ps1
+```
+
+> `restore.ps1` 預設會重建 `.gemini`、`.claude`、`.codex`，不保留原電腦舊資料於使用路徑。
+
+常用參數：
+```powershell
+.\scripts\restore.ps1 -DryRun          # 預覽不執行
+.\scripts\restore.ps1 -BackupExisting  # 先備份舊目錄再重建
 ```
 
 ### 在 macOS / Linux 執行（PowerShell 7）
@@ -63,6 +74,7 @@ openai-cli/
 
 - **認證資料不會同步**，新電腦需要重新登入
 - Codex 的專案信任設定 (`[projects]`) 不會同步
+- `restore.ps1` 預設為重建模式，會清空目標設定目錄後再還原
 
 ## ☁️ 推上雲端（Git）
 

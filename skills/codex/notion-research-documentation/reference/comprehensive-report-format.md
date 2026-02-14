@@ -1,6 +1,7 @@
 # Comprehensive Report Format
 
-**When to use**: 
+**When to use**:
+
 - Formal documentation requirements
 - Strategic decision support
 - Complex topics requiring extensive analysis
@@ -11,6 +12,7 @@
 **Length**: 1500+ words
 
 **Structure**:
+
 - Executive summary
 - Background & context
 - Methodology
@@ -38,4 +40,3 @@ See [comprehensive-report-template.md](comprehensive-report-template.md) for the
 - "Document the full technical investigation of the database migration"
 - "Prepare an in-depth report on vendor options for executive review"
 - "Analyze the pros and cons of different architectural approaches"
-

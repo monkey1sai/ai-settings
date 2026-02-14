@@ -6,6 +6,7 @@ Use this template for regular project status updates and check-ins.
 # [Project Name] Status Update - [Date]
 
 ## Meeting Details
+
 **Date**: [Date and time]
 **Attendees**: [List]
 **Project**: <mention-page url="...">Project Page</mention-page>
@@ -20,36 +21,42 @@ Use this template for regular project status updates and check-ins.
 ## Progress Since Last Meeting
 
 ### Completed
+
 - [Accomplishment with specifics]
 - [Accomplishment with specifics]
 
 ### In Progress
+
 - [Work item and status]
 - [Work item and status]
 
 ## Metrics
 
-| Metric | Current | Target | Status |
-|--------|---------|--------|--------|
+| Metric   | Current | Target  | Status |
+| -------- | ------- | ------- | ------ |
 | [Metric] | [Value] | [Value] | [Icon] |
 | [Metric] | [Value] | [Value] | [Icon] |
 
 ## Upcoming Work
 
 **Next 2 Weeks**:
+
 - [Planned work]
 - [Planned work]
 
 **Next Month**:
+
 - [Milestone or major work]
 
 ## Blockers & Risks
 
 ### Active Blockers
+
 - **[Blocker]**: [Description and impact]
   - Action: [What's being done]
 
 ### Risks
+
 - **[Risk]**: [Description]
   - Mitigation: [Strategy]
 
@@ -71,4 +78,3 @@ Use this template for regular project status updates and check-ins.
 **Date**: [Date]
 **Focus**: [What next meeting will cover]
 ```
-
